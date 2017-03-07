@@ -1,4 +1,5 @@
 package co.edu.javeriana.vuelos.presentacion;
+import co.edu.javeriana.vuelos.persistencia.*;
 
 import java.util.Scanner;
 
@@ -10,26 +11,33 @@ public class TestSistemaVuelos {
 		SistemaVuelos sistema = new SistemaVuelos();
 		int ope=1;
 		Scanner scanner= new Scanner(System.in);
+		Scanner sc2= new Scanner(System.in);
+
 		while (ope!=12){
 			System.out.println("Seleccione una de las siguientes opciones:");
 			//menu
 			System.out.println("1: ingresar ciudades del sistema");
-			System.out.println("2: ingresar aerolíneas y vuelos planeados del sistema");
+			System.out.println("2: ingresar aerolï¿½neas y vuelos planeados del sistema");
 			System.out.println("3: ingresar agentes del sistema");
-			System.out.println("4: agregar un vuelo específico para un vuelo planeado");
-			System.out.println("5: mostrar aerolíneas, vuelos planeados y vuelos específicos del sistema");
+			System.out.println("4: agregar un vuelo especï¿½fico para un vuelo planeado");
+			System.out.println("5: mostrar aerolï¿½neas, vuelos planeados y vuelos especï¿½ficos del sistema");
 			System.out.println("6: agregar un itinerario para un agente");
 			System.out.println("7: agregar un trayecto asociado a un itinerario");
 			System.out.println("8: mostrar agentes, itinerarios y trayectos");
 			System.out.println("9: comprar un itinerario asignando a cada pasajero una silla sobre cada trayecto del itinerario");
-			System.out.println("10: tiquete electrónico: para un itinerario comprado mostrar su valor,sus trayectos, las sillas reservadas y los pasajeros asociados");
-			System.out.println("11: reporte vuelos específicos: dado el nombre de una ciudad de origen y el de una ciudad destino");
+			System.out.println("10: tiquete electrï¿½nico: para un itinerario comprado mostrar su valor,sus trayectos, las sillas reservadas y los pasajeros asociados");
+			System.out.println("11: reporte vuelos especï¿½ficos: dado el nombre de una ciudad de origen y el de una ciudad destino");
 			System.out.println("12: terminar");
 			String leido= scanner.nextLine();
 			ope=Integer.parseInt(leido);
 			
 			switch(ope){
 				case 1:
+					String nombreArchivo="";
+					System.out.println("Ingrese el nombre del archivo");
+					nombreArchivo = sc2.nextLine();
+					ManejoArchivos.leerCiudades(sistema, nombreArchivo);
+					
 					break;
 				case 2:
 					break;
