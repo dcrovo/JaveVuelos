@@ -14,14 +14,13 @@ public class VueloPlaneado {
 	
 	
 	public VueloPlaneado(long codigo, String numeroVuelo, String diaSemana, String horaSalida, String horaLlegada,
-			ArrayList<VueloEspecifico> vuelosEspecificos, Ciudad destino, Ciudad origen) {
+			 Ciudad destino, Ciudad origen) {
 		
 		this.codigo = codigo;
 		this.numeroVuelo = numeroVuelo;
 		this.diaSemana = diaSemana;
 		this.horaSalida = horaSalida;
 		this.horaLlegada = horaLlegada;
-		this.vuelosEspecificos = vuelosEspecificos;
 		this.destino = destino;
 		this.origen = origen;
 	}

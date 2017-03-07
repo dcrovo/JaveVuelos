@@ -10,12 +10,11 @@ public class Aerolinea {
 	private ArrayList<VueloPlaneado> vuelosPlaneados = new ArrayList<VueloPlaneado>();
 	
 
-	public Aerolinea(long codigo, String nombre, String cuentaBanco, ArrayList<VueloPlaneado> vuelosPlaneados) {
+	public Aerolinea(long codigo, String nombre, String cuentaBanco) {
 		
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.cuentaBanco = cuentaBanco;
-		this.vuelosPlaneados = vuelosPlaneados;
 	}
 	
 	public long getCodigo() {
@@ -41,5 +40,8 @@ public class Aerolinea {
 	}
 	public void setVuelosPlaneados(ArrayList<VueloPlaneado> vuelosPlaneados) {
 		this.vuelosPlaneados = vuelosPlaneados;
+	}
+	public void agregarVueloPlaneado(VueloPlaneado vueloPlaneado){
+		this.vuelosPlaneados.add(vueloPlaneado);
 	}
 }

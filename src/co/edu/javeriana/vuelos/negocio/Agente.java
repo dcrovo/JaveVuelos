@@ -8,12 +8,11 @@ public class Agente {
 	private String email;
 	private ArrayList<Itinerario> itinerarios= new          ArrayList<Itinerario>();
 	
-	public Agente(long codigo, String nombre, String email, ArrayList<Itinerario> itinerarios) {
+	public Agente(long codigo, String nombre, String email) {
 		
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.email = email;
-		this.itinerarios = itinerarios;
 	}
 	
 	public long getCodigo() {

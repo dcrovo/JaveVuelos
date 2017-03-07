@@ -40,8 +40,16 @@ public class TestSistemaVuelos {
 					
 					break;
 				case 2:
+					System.out.println("Ingrese el nombre del archivo");
+					nombreArchivo = sc2.nextLine();
+					ManejoArchivos.leerAerolinea(sistema, nombreArchivo);
+				
 					break;
 				case 3:
+					System.out.println("Ingrese el nombre del archivo");
+					nombreArchivo = sc2.nextLine();
+					ManejoArchivos.leerAgentes(sistema, nombreArchivo);
+					
 					break;
 				case 4:
 					break;
@@ -62,6 +70,7 @@ public class TestSistemaVuelos {
 			}
 		}
 		scanner.close();
+		sc2.close();
 
 	}
 	
