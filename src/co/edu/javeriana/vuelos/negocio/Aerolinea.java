@@ -7,7 +7,17 @@ public class Aerolinea {
 	private long codigo;
 	private String nombre;
 	private String cuentaBanco;
-	private ArrayList<VueloPlaneado> vuelosPlaneados;
+	private ArrayList<VueloPlaneado> vuelosPlaneados = new ArrayList<VueloPlaneado>();
+	
+
+	public Aerolinea(long codigo, String nombre, String cuentaBanco, ArrayList<VueloPlaneado> vuelosPlaneados) {
+		
+		this.codigo = codigo;
+		this.nombre = nombre;
+		this.cuentaBanco = cuentaBanco;
+		this.vuelosPlaneados = vuelosPlaneados;
+	}
+	
 	public long getCodigo() {
 		return codigo;
 	}
@@ -25,5 +35,11 @@ public class Aerolinea {
 	}
 	public void setCuentaBanco(String cuentaBanco) {
 		this.cuentaBanco = cuentaBanco;
+	}
+	public ArrayList<VueloPlaneado> getVuelosPlaneados() {
+		return vuelosPlaneados;
+	}
+	public void setVuelosPlaneados(ArrayList<VueloPlaneado> vuelosPlaneados) {
+		this.vuelosPlaneados = vuelosPlaneados;
 	}
 }

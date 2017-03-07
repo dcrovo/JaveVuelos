@@ -11,7 +11,20 @@ public class VueloEspecifico {
 	private int capacidad;
 	private int cuposLibres;
 	private long tarifa;
-	private ArrayList<Silla> sillas;
+	private ArrayList<Silla> sillas = new ArrayList<Silla>();
+	
+	
+	public VueloEspecifico(LocalDate fecha, String tipoAvion, int capacidad, int cuposLibres, long tarifa,
+			ArrayList<Silla> sillas) {
+		CONSECUTIVO++;
+		this.codigo = CONSECUTIVO;
+		this.fecha = fecha;
+		this.tipoAvion = tipoAvion;
+		this.capacidad = capacidad;
+		this.cuposLibres = cuposLibres;
+		this.tarifa = tarifa;
+		this.sillas = sillas;
+	}
 	public long getCodigo() {
 		return codigo;
 	}

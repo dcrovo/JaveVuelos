@@ -3,18 +3,26 @@ package co.edu.javeriana.vuelos.negocio;
 import java.util.*;
 public class Itinerario {
 
-	private static long CONSECUTIVO;
+	private static long CONSECUTIVO = 0;
 	private long codigo;
 	private String nombre;
 	private boolean comprado;
 	private Agente agente;
 	private ArrayList<Trayecto> trayectos= new ArrayList<Trayecto>();
 	private ArrayList<Pasajero> pasajeros= new ArrayList<Pasajero>();
+	
+	public Itinerario(String nombre, boolean comprado, Agente agente, ArrayList<Trayecto> trayectos,
+			ArrayList<Pasajero> pasajeros) {
+		CONSECUTIVO++;
+		this.codigo = CONSECUTIVO;
+		this.nombre = nombre;
+		this.comprado = comprado;
+		this.agente = agente;
+		this.trayectos = trayectos;
+		this.pasajeros = pasajeros;
+	}
 	public long getCodigo() {
 		return codigo;
-	}
-	public void setCodigo(long codigo) {
-		this.codigo = codigo;
 	}
 	public String getNombre() {
 		return nombre;

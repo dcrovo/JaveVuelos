@@ -8,9 +8,25 @@ public class VueloPlaneado {
 	private String diaSemana;
 	private String horaSalida;
 	private String horaLlegada;
-	private ArrayList<VueloEspecifico> vuelosEspecificos;
+	private ArrayList<VueloEspecifico> vuelosEspecificos = new ArrayList<VueloEspecifico>();
 	private Ciudad destino;
 	private Ciudad origen;
+	
+	
+	public VueloPlaneado(long codigo, String numeroVuelo, String diaSemana, String horaSalida, String horaLlegada,
+			ArrayList<VueloEspecifico> vuelosEspecificos, Ciudad destino, Ciudad origen) {
+		
+		this.codigo = codigo;
+		this.numeroVuelo = numeroVuelo;
+		this.diaSemana = diaSemana;
+		this.horaSalida = horaSalida;
+		this.horaLlegada = horaLlegada;
+		this.vuelosEspecificos = vuelosEspecificos;
+		this.destino = destino;
+		this.origen = origen;
+	}
+	
+	
 	public long getCodigo() {
 		return codigo;
 	}

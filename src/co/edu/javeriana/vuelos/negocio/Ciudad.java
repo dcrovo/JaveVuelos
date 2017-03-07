@@ -4,6 +4,13 @@ public class Ciudad {
 
 	private long codigo;
 	private String nombre;
+	
+	
+	public Ciudad(long codigo, String nombre) {
+		this.codigo = codigo;
+		this.nombre = nombre;
+	}
+	
 	public long getCodigo() {
 		return codigo;
 	}

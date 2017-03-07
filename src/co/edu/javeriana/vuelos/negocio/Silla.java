@@ -7,6 +7,18 @@ public class Silla {
 	private Trayecto trayecto;
 	private VueloEspecifico vueloEspecifico;
 	private Pasajero pasajero;
+	
+	
+	public Silla(String id, boolean comprada, Trayecto trayecto, VueloEspecifico vueloEspecifico, Pasajero pasajero) {
+
+		this.id = id;
+		this.comprada = comprada;
+		this.trayecto = trayecto;
+		this.vueloEspecifico = vueloEspecifico;
+		this.pasajero = pasajero;
+	}
+	
+	
 	public String getId() {
 		return id;
 	}

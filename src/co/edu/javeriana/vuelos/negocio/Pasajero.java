@@ -6,6 +6,14 @@ public class Pasajero {
 	private String identificacion;
 	private String nombre;
 	private ArrayList<Silla> sillas= new ArrayList<Silla>(); //preguntar!
+	
+	
+	public Pasajero(String identificacion, String nombre, ArrayList<Silla> sillas) {
+		this.identificacion = identificacion;
+		this.nombre = nombre;
+		this.sillas = sillas;
+	}
+	
 	public String getIdentificacion() {
 		return identificacion;
 	}

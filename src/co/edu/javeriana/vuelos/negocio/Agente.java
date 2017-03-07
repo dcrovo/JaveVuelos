@@ -7,6 +7,15 @@ public class Agente {
 	private String nombre;
 	private String email;
 	private ArrayList<Itinerario> itinerarios= new          ArrayList<Itinerario>();
+	
+	public Agente(long codigo, String nombre, String email, ArrayList<Itinerario> itinerarios) {
+		
+		this.codigo = codigo;
+		this.nombre = nombre;
+		this.email = email;
+		this.itinerarios = itinerarios;
+	}
+	
 	public long getCodigo() {
 		return codigo;
 	}

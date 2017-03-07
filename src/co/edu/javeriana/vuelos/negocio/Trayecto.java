@@ -8,11 +8,19 @@ public class Trayecto {
 		private VueloEspecifico vueloespecifico;
 		private ArrayList<Silla> sillas= new ArrayList<Silla>(); 
 		private Itinerario itinerario;
+		
+		
+		public Trayecto(VueloEspecifico vueloespecifico, ArrayList<Silla> sillas, Itinerario itinerario) {
+			CONSECUTIVO++;
+			this.id = CONSECUTIVO;
+			this.vueloespecifico = vueloespecifico;
+			this.sillas = sillas;
+			this.itinerario = itinerario;
+		}
+		
+		
 		public int getId() {
 			return id;
-		}
-		public void setId(int id) {
-			this.id = id;
 		}
 		public VueloEspecifico getVueloespecifico() {
 			return vueloespecifico;
