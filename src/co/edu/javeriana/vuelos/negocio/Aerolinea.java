@@ -41,6 +41,26 @@ public class Aerolinea {
 	public void setVuelosPlaneados(ArrayList<VueloPlaneado> vuelosPlaneados) {
 		this.vuelosPlaneados = vuelosPlaneados;
 	}
+	
+	@Override
+	public String toString() {
+		String cod=String.valueOf(codigo);
+		return String.format("%s     %s",cod,nombre);
+	}
+	
+	public String reporteVuelosPlaneados(int indexvueloplaneado){
+			return vuelosPlaneados.get(indexvueloplaneado).toString();
+	}
+
+	public int buscarVueloPlaneadoId(long codigoVP){ 
+		for (int i=0 ; i< vuelosPlaneados.size();i++){
+			if(vuelosPlaneados.get(i).getCodigo() == codigoVP){
+				return vuelosPlaneados.indexOf(vuelosPlaneados.get(i));
+			}
+		}
+		return -1;
+	}
+	
 	public void agregarVueloPlaneado(VueloPlaneado vueloPlaneado){
 		this.vuelosPlaneados.add(vueloPlaneado);
 	}

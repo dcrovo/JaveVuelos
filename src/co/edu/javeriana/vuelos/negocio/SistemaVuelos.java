@@ -1,4 +1,5 @@
 package co.edu.javeriana.vuelos.negocio;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class SistemaVuelos {
@@ -71,6 +72,59 @@ public class SistemaVuelos {
 		}
 		return index;
 	}
+	
+	public String reporteAerolinea(int i){
+		return aerolineas.get(i).toString();
+	}
+	
+	public int buscarAerolineaId(long codigo){
+		int index = -1;
+		for(Aerolinea aerolinea : aerolineas){
+			if(aerolinea.getCodigo() == codigo){
+				return aerolineas.indexOf(aerolinea);
+			}
+			
+		}
+		return index;
+	}
+	
+	public String reporteVuelosPlaneados(int indexaerolinea,int indexvueloplaneado){
+		return aerolineas.get(indexaerolinea).reporteVuelosPlaneados(indexvueloplaneado);
+	}
+	
+	public int buscarVueloPlaneadoId(int posAerolinea,long codigoVP){
+		return aerolineas.get(posAerolinea).buscarVueloPlaneadoId(codigoVP);
+	}
+	
+	public long crearVueloEspecifico(int posAerolinea,int posVueloPlaneado,LocalDateTime fecha,String tipoAvion,int capacidad,long tarifa){
+		long codigoVE = aerolineas.get(posAerolinea).getVuelosPlaneados().get(posVueloPlaneado).crearVueloEspecifico(fecha, tipoAvion, capacidad, tarifa);
+		return codigoVE;
+	}
+	
+	public String reporteAgentes(int i){
+		return agentes.get(i).toString();
+	}
+	
+
+	public int buscarAgenteId(long codigo){
+		int index = -1;
+		for(Agente agente : agentes){
+			if(agente.getCodigo() == codigo){
+				return agentes.indexOf(agente);
+			}
+			
+		}
+		return index;
+	}
+	
+	public long crearItinerario(int posAgente,String nomItinerario){
+		return agentes.get(posAgente).crearItinerario(nomItinerario, agentes.get(posAgente));
+	}
+	
+	public void crearPasajero(int posAgente,long codItinerario,String identificacion, String nombre){
+		agentes.get(posAgente).crearPasajero(agentes.get(posAgente).buscarItinerarioId(codItinerario),identificacion,nombre);
+	}
+	
 	/*public void reporteCiudades(){
 		for(Ciudad ciudad: ciudades ){
 			

@@ -11,15 +11,12 @@ public class Itinerario {
 	private ArrayList<Trayecto> trayectos= new ArrayList<Trayecto>();
 	private ArrayList<Pasajero> pasajeros= new ArrayList<Pasajero>();
 	
-	public Itinerario(String nombre, boolean comprado, Agente agente, ArrayList<Trayecto> trayectos,
-			ArrayList<Pasajero> pasajeros) {
+	public Itinerario(String nombre, Agente agente) {
 		CONSECUTIVO++;
 		this.codigo = CONSECUTIVO;
 		this.nombre = nombre;
-		this.comprado = comprado;
+		this.comprado = true;;
 		this.agente = agente;
-		this.trayectos = trayectos;
-		this.pasajeros = pasajeros;
 	}
 	public long getCodigo() {
 		return codigo;
@@ -53,6 +50,14 @@ public class Itinerario {
 	}
 	public void setPasajeros(ArrayList<Pasajero> pasajeros) {
 		this.pasajeros = pasajeros;
+	}
+	public void crearPasajero(String identificacion,String nombre){
+		Pasajero pasajeroaux= new Pasajero (identificacion,nombre);
+		pasajeros.add(pasajeroaux);
+	}
+	@Override
+	public String toString() {
+		return String.format("%-3d %-15s %-5b", codigo,nombre,comprado);
 	}
 	
 }

@@ -1,12 +1,13 @@
 package co.edu.javeriana.vuelos.negocio;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 public class VueloEspecifico {
 
 	private static long CONSECUTIVO=0;
 	private long codigo;
-	private LocalDate fecha;
+	private LocalDateTime fecha;
 	private String tipoAvion;
 	private int capacidad;
 	private int cuposLibres;
@@ -14,16 +15,14 @@ public class VueloEspecifico {
 	private ArrayList<Silla> sillas = new ArrayList<Silla>();
 	
 	
-	public VueloEspecifico(LocalDate fecha, String tipoAvion, int capacidad, int cuposLibres, long tarifa,
-			ArrayList<Silla> sillas) {
+	public VueloEspecifico(LocalDateTime fecha, String tipoAvion, int capacidad, long tarifa) {
 		CONSECUTIVO++;
 		this.codigo = CONSECUTIVO;
 		this.fecha = fecha;
 		this.tipoAvion = tipoAvion;
 		this.capacidad = capacidad;
-		this.cuposLibres = cuposLibres;
+		this.cuposLibres = capacidad;
 		this.tarifa = tarifa;
-		this.sillas = sillas;
 	}
 	public long getCodigo() {
 		return codigo;
@@ -31,10 +30,10 @@ public class VueloEspecifico {
 	public void setCodigo(long codigo) {
 		this.codigo = codigo;
 	}
-	public LocalDate getFecha() {
+	public LocalDateTime getFecha() {
 		return fecha;
 	}
-	public void setFecha(LocalDate fecha) {
+	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}
 	public String getTipoAvion() {
@@ -67,5 +66,14 @@ public class VueloEspecifico {
 	public void setSillas(ArrayList<Silla> sillas) {
 		this.sillas = sillas;
 	}
+	@Override
+	public String toString() {
+		String cod=String.valueOf(codigo);
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formattedDate = fecha.format(formato);
+		String tarf = String.valueOf(tarifa);
+		return String.format("%s      %s      %s      %d      %d     %s",cod,formattedDate,tipoAvion,capacidad,cuposLibres,tarf);
+	}
+	
 	
 }

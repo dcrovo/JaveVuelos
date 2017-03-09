@@ -6,11 +6,6 @@ import java.io.*;
 import co.edu.javeriana.vuelos.negocio.*;
 
 public class ManejoArchivos {
-
-	ArrayList<Aerolinea> aereolinea;
-	ArrayList<Ciudad> ciudades;
-	ArrayList<Agente> agentes;
-	
 	
 	public static void leerCiudades(SistemaVuelos sistema, String nombreArchivo){
 		long codigo;

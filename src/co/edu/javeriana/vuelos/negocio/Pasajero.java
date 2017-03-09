@@ -8,10 +8,9 @@ public class Pasajero {
 	private ArrayList<Silla> sillas= new ArrayList<Silla>(); //preguntar!
 	
 	
-	public Pasajero(String identificacion, String nombre, ArrayList<Silla> sillas) {
+	public Pasajero(String identificacion, String nombre) {
 		this.identificacion = identificacion;
 		this.nombre = nombre;
-		this.sillas = sillas;
 	}
 	
 	public String getIdentificacion() {

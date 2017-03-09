@@ -1,5 +1,6 @@
 package co.edu.javeriana.vuelos.negocio;
 
+import java.time.LocalDateTime;
 import java.util.*;
 public class VueloPlaneado {
 	
@@ -74,4 +75,20 @@ public class VueloPlaneado {
 	public void setOrigen(Ciudad origen) {
 		this.origen = origen;
 	}
+
+
+	@Override
+	public String toString() {
+		String cod=String.valueOf(codigo);
+		return String.format("%s      %s      %s      %s      %s      %s       %s",cod, numeroVuelo,diaSemana, horaSalida, horaLlegada,origen.getNombre(), destino.getNombre());
+	}
+	
+	public long crearVueloEspecifico(LocalDateTime fecha,String tipoAvion,int capacidad,long tarifa){
+		VueloEspecifico vueloespecificoaux = new VueloEspecifico(fecha,tipoAvion,capacidad,tarifa);
+		vuelosEspecificos.add(vueloespecificoaux);
+		return vuelosEspecificos.get(vuelosEspecificos.size()-1).getCodigo();
+	}
+	
+
+	
 }
