@@ -2,10 +2,12 @@ package co.edu.javeriana.vuelos.presentacion;
 
 import co.edu.javeriana.vuelos.persistencia.*;
 
+import java.io.IOException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+import java.util.ArrayList;
 
 import co.edu.javeriana.vuelos.negocio.*;
 
@@ -50,13 +52,17 @@ public class TestSistemaVuelos {
 					System.out.println("Operaci�n terminada: Agentes listos");
 					break;
 				case 4:
+					
 					AgregarVueloEspecifico(sistema);
+					
 					break;
 				case 5:
 					ReporteContenidoAerolineas(sistema);
 					break;
 				case 6:
+			
 					AgregarItinerario (sistema);
+					
 					break;
 				case 7:
 					AgregarTrayecto(sistema);
@@ -220,15 +226,26 @@ public class TestSistemaVuelos {
 		long codItinerario = Long.parseLong(sc.nextLine());
 		int indexItinerario = sistema.getAgentes().get(indexAgente).buscarItinerarioId(codItinerario);
 		System.out.println("--seleccione el codigo de ciudad de origen ");
-		long codCiudadOrigen = Long.parseLong(sc.nextLine());
+		long codOrigen = Long.parseLong(sc.nextLine());
 		System.out.println("--seleccione el codigo de ciudad de destino ");
-		long codCiudadDestino = Long.parseLong(sc.nextLine());
+		long codDestino = Long.parseLong(sc.nextLine());
 		
 		System.out.println("--Ingrese fecha de salida del vuelo (yyyy-mm-dd)");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime fecha = Utils.addHoraAFecha(LocalDate.parse(sc.nextLine(),formatter), "00:00");
+		ArrayList<Aerolinea> auxAerolineas = new ArrayList<Aerolinea>();
+		auxAerolineas = sistema.buscarVueloEspecificoRequerimiento(codOrigen, codDestino, fecha);
+		if(auxAerolineas.size() == 0){
+			System.out.println("--No existen cuelos especificos que cumplan los requerimientos:");	
+		}
+		if(auxAerolineas.size() != 0){
+			System.out.println("Ingrese el código del vuelo especifico:\n--------------------\n\n");
+			System.out.println("Codigo 	Fecha 	Tipo Avion 	capacidad 	tarifa(US)");
 
-		
+			reporteVueloEspecifico(auxAerolineas);
+			long codVueloEspecifico = Long.parseLong(sc.nextLine());
+		}
+	//	System.out.println(sistema.buscarVueloEspecificoRequerimiento(codOrigen, codDestino, fecha));	
 		
 
 
@@ -264,8 +281,14 @@ public class TestSistemaVuelos {
 		
 	}
 	
-	public void ReporteVueloEspecifico (){
-		
+	public static void reporteVueloEspecifico (ArrayList<Aerolinea> aerolinea){
+		for(int i = 0; i<aerolinea.size();i++){
+			for(int j= 0; j<aerolinea.get(i).getVuelosPlaneados().size();j++){
+				for(int k=0; k<aerolinea.get(i).getVuelosPlaneados().get(j).getVuelosEspecificos().size();k++){
+					System.out.println(aerolinea.get(i).getVuelosPlaneados().get(j).getVuelosEspecificos().get(k).toString());
+				}
+			}
+		}
 	}
 
 

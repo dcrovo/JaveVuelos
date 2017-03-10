@@ -1,5 +1,6 @@
 package co.edu.javeriana.vuelos.negocio;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Aerolinea {
@@ -63,5 +64,22 @@ public class Aerolinea {
 	
 	public void agregarVueloPlaneado(VueloPlaneado vueloPlaneado){
 		this.vuelosPlaneados.add(vueloPlaneado);
+	}
+	public ArrayList<VueloPlaneado> buscarVueloEspecificoRequerimiento( long codOrigen, long codDestino, LocalDateTime fechaSalida){
+		ArrayList<VueloPlaneado> VP = new ArrayList<VueloPlaneado>();
+		ArrayList<VueloEspecifico> VE = new ArrayList<VueloEspecifico>();
+		int i= 0;
+		for(VueloPlaneado vueloPlaneado : vuelosPlaneados){
+			if((vueloPlaneado.getOrigen().getCodigo() == codOrigen) && (vueloPlaneado.getDestino().getCodigo() == codDestino)){
+					VE = vueloPlaneado.buscarVueloEspecificoRequerimientos(fechaSalida);
+					if(VE.size() != 0){
+					VP.add(vueloPlaneado);
+					VP.get(i).setVuelosEspecificos(VE);
+					i++;
+					}
+			}
+			
+		}
+		return VP;
 	}
 }

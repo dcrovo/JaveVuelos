@@ -54,10 +54,10 @@ public class SistemaVuelos {
 	}
 	public void crearVueloPlaneado(long codigo, String numeroVuelo, String diaSemana, String horaSalida, String horaLlegada,
 			long origen, long destino,int indexAerolinea){
-		
+		long codigoAerolinea = aerolineas.get(indexAerolinea).getCodigo();
 		Ciudad cOrigen = ciudades.get(buscarCiudadId(origen));
 		Ciudad cDestino = ciudades.get(buscarCiudadId(destino));
-		VueloPlaneado vueloPlaneado = new VueloPlaneado(codigo,numeroVuelo,diaSemana,horaSalida,horaLlegada,cDestino,cOrigen);
+		VueloPlaneado vueloPlaneado = new VueloPlaneado(codigo,numeroVuelo,diaSemana,horaSalida,horaLlegada,cDestino,cOrigen,codigoAerolinea);
 		aerolineas.get(indexAerolinea).getVuelosPlaneados().add(vueloPlaneado);
 		
 		
@@ -118,13 +118,33 @@ public class SistemaVuelos {
 	}
 	
 	public long crearItinerario(int posAgente,String nomItinerario){
+		
 		return agentes.get(posAgente).crearItinerario(nomItinerario, agentes.get(posAgente));
+		
 	}
 	
 	public void crearPasajero(int posAgente,long codItinerario,String identificacion, String nombre){
 		agentes.get(posAgente).crearPasajero(agentes.get(posAgente).buscarItinerarioId(codItinerario),identificacion,nombre);
 	}
 	
+	public ArrayList<Aerolinea> buscarVueloEspecificoRequerimiento( long codOrigen, long codDestino, LocalDateTime fechaSalida){
+		int i=0;
+		ArrayList<Aerolinea> aerolineasVER = new ArrayList<Aerolinea>();
+		ArrayList<VueloPlaneado> VP = new ArrayList<VueloPlaneado>();
+
+		for(Aerolinea aerolinea : aerolineas){
+			VP=aerolinea.buscarVueloEspecificoRequerimiento(codOrigen, codDestino, fechaSalida);
+			if(VP.size() != 0){
+				
+			aerolineasVER.add(aerolinea);
+			aerolineasVER.get(i).setVuelosPlaneados(VP);
+			i++;
+
+			}
+			
+		}
+		return aerolineasVER;
+	}
 	/*public void reporteCiudades(){
 		for(Ciudad ciudad: ciudades ){
 			

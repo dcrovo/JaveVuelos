@@ -48,7 +48,9 @@ public class Agente {
 	
 	public long crearItinerario(String nomItinerario,Agente agente){
 		Itinerario itinerarioaux= new Itinerario (nomItinerario,agente);
+		
 		itinerarios.add(itinerarioaux);
+	
 		return itinerarios.get(itinerarios.size()-1).getCodigo();
 	}
 	

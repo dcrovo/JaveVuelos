@@ -13,9 +13,10 @@ public class VueloEspecifico {
 	private int cuposLibres;
 	private long tarifa;
 	private ArrayList<Silla> sillas = new ArrayList<Silla>();
+	private long codigoVueloPlaneado;
 	
 	
-	public VueloEspecifico(LocalDateTime fecha, String tipoAvion, int capacidad, long tarifa) {
+	public VueloEspecifico(LocalDateTime fecha, String tipoAvion, int capacidad, long tarifa,long codigoVueloPlaneado) {
 		CONSECUTIVO++;
 		this.codigo = CONSECUTIVO;
 		this.fecha = fecha;
@@ -23,6 +24,7 @@ public class VueloEspecifico {
 		this.capacidad = capacidad;
 		this.cuposLibres = capacidad;
 		this.tarifa = tarifa;
+		this.codigoVueloPlaneado = codigoVueloPlaneado;
 	}
 	public long getCodigo() {
 		return codigo;
@@ -66,6 +68,13 @@ public class VueloEspecifico {
 	public void setSillas(ArrayList<Silla> sillas) {
 		this.sillas = sillas;
 	}
+	
+	public long getCodigoAerolinea() {
+		return codigoVueloPlaneado;
+	}
+	public void setCodigoAerolinea(long codigoVueloPlaneado) {
+		this.codigoVueloPlaneado = codigoVueloPlaneado;
+	}
 	@Override
 	public String toString() {
 		String cod=String.valueOf(codigo);
@@ -74,6 +83,7 @@ public class VueloEspecifico {
 		String tarf = String.valueOf(tarifa);
 		return String.format("%s      %s      %s      %d      %d     %s",cod,formattedDate,tipoAvion,capacidad,cuposLibres,tarf);
 	}
+	
 	
 	
 }
