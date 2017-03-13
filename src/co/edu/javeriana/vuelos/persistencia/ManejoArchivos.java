@@ -119,4 +119,41 @@ public class ManejoArchivos {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void reporteArchivoTxt(SistemaVuelos sistema, String origen, String destino, String nombreArchivo){
+		int indexOrigen = sistema.buscarCiudadNombre(origen);
+		int indexDestino = sistema.buscarCiudadNombre(destino);
+		ArrayList<VueloEspecifico> vuelosPlaneadosEntreCiudades = new ArrayList<VueloEspecifico>();
+		File outFile = new File("./"+nombreArchivo);
+		FileOutputStream outStream = null;
+		PrintWriter dataOutStream = null;
+		vuelosPlaneadosEntreCiudades = sistema.vuelosEntreCiudades(sistema, indexOrigen, indexDestino);
+		if(vuelosPlaneadosEntreCiudades.size() != 0){
+			
+			try {
+			outStream = new FileOutputStream(outFile);
+			dataOutStream = new PrintWriter(outStream);
+			dataOutStream.println("#Vuelos Planeados entre " + origen +" y" + destino + ":");
+			dataOutStream.println("#NumeroVuelo---DiaSemana---HoraSalida---HoraLlegada---Fecha");
+				for(int i=0;i<vuelosPlaneadosEntreCiudades.size();i++){
+					dataOutStream.println(vuelosPlaneadosEntreCiudades.get(i).toString2());
+
+				}
+				dataOutStream.println("#FIN");
+
+			}
+			catch (Exception e) {
+			System.out.println("excepcion inesperada:" + e.getMessage());
+			}
+			finally {
+			try {
+			dataOutStream.close();
+			outStream.close();
+			}
+			catch (Exception e) {
+			System.out.println("excepcion cerrando el archivo:" + e.getMessage());
+			}
+			}
+		}
+	}
 }

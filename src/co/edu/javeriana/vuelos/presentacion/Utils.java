@@ -23,9 +23,9 @@ public static LocalDateTime addHoraAFecha(LocalDate fecha, String hora){
 		return edad;
 	}
 	
-	public static long diferenciaFechasMinutos(LocalDateTime fecha1, LocalDateTime fecha2){
+	public static long diferenciaFechasDias(LocalDateTime fecha1, LocalDateTime fecha2){
 		
-		long dif = fecha1.until(fecha2, ChronoUnit.MINUTES);
+		long dif = fecha1.until(fecha2, ChronoUnit.DAYS);
 		
 		return dif;
 	}

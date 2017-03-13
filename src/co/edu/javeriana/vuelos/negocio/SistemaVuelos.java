@@ -2,6 +2,8 @@ package co.edu.javeriana.vuelos.negocio;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import co.edu.javeriana.vuelos.presentacion.Utils;
+
 public class SistemaVuelos {
 	
 	ArrayList<Aerolinea> aerolineas = new ArrayList<Aerolinea>();
@@ -66,6 +68,16 @@ public class SistemaVuelos {
 		int index = -1;
 		for(Ciudad ciudad : ciudades){
 			if(ciudad.getCodigo() == codigo){
+				return ciudades.indexOf(ciudad);
+			}
+			
+		}
+		return index;
+	}
+	public int buscarCiudadNombre(String nombre){
+		int index = -1;
+		for(Ciudad ciudad : ciudades){
+			if(ciudad.getNombre().equals(nombre)){
 				return ciudades.indexOf(ciudad);
 			}
 			
@@ -247,7 +259,28 @@ public class SistemaVuelos {
 		return agentes.get(indAgente).getItinerarios().get(indItinerario).getTrayectos().get(indTrayecto).toString();
 	}
 	
-	
+	public ArrayList<VueloEspecifico> vuelosEntreCiudades(SistemaVuelos sistema, int indexOrigen, int indexDestino){
+		ArrayList<VueloEspecifico> vuelosPlaneadosEntreCiudades = new ArrayList<VueloEspecifico>();
+		Ciudad origen = sistema.getCiudades().get(indexOrigen);
+		Ciudad destino = sistema.getCiudades().get(indexDestino);
+		LocalDateTime fechaHoy = LocalDateTime.now();
+		for(int i=0; i< sistema.getAerolinea().size();i++){
+			for(int j=0; j<sistema.getAerolinea().get(i).getVuelosPlaneados().size();j++){
+				
+				if((origen.getCodigo() == sistema.getAerolinea().get(i).getVuelosPlaneados().get(j).getOrigen().getCodigo()) && (destino.getCodigo() == sistema.getAerolinea().get(i).getVuelosPlaneados().get(j).getDestino().getCodigo())){
+					for(int k=0;k<sistema.getAerolinea().get(i).getVuelosPlaneados().get(j).getVuelosEspecificos().size();k++){
+						LocalDateTime fecha1 = sistema.getAerolinea().get(i).getVuelosPlaneados().get(j).getVuelosEspecificos().get(k).getFecha();
+						if(Utils.diferenciaFechasDias(fecha1, fechaHoy)<= 31){
+							vuelosPlaneadosEntreCiudades.add(sistema.getAerolinea().get(i).getVuelosPlaneados().get(j).getVuelosEspecificos().get(k));
+						}
+					}
+				}
+			}
+		}
+		
+		
+		return vuelosPlaneadosEntreCiudades;
+	}
 	/*public void reporteCiudades(){
 		for(Ciudad ciudad: ciudades ){
 			

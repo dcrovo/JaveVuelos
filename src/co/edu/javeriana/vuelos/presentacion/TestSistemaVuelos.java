@@ -79,8 +79,10 @@ public class TestSistemaVuelos {
 					ComprarItinerario(sistema);
 					break;
 				case 10:
+					MostrarTiqueteElectronico (sistema);
 					break;
 				case 11:
+					reporteArchivoTxt(sistema);
 					break;
 			}
 		}
@@ -411,7 +413,7 @@ public class TestSistemaVuelos {
 	 * Metodo auxiliar 10, para el resumido de la compra del pasajero
 	 * @param sistema
 	 */
-	public void MostrarTiqueteElectronico (SistemaVuelos sistema){
+	public static void MostrarTiqueteElectronico (SistemaVuelos sistema){
 		/**
 		 * Reporte de agentes
 		 */
@@ -443,10 +445,7 @@ public class TestSistemaVuelos {
 		}
 	}
 	
-	/**
-	 * Metodo auxiliar 11, para generar el reporte de los vuelos especificos solicitados
-	 * @param sistema
-	 */
+
 	public static void reporteVueloEspecifico (ArrayList<Aerolinea> aerolinea){
 		for(int i = 0; i<aerolinea.size();i++){
 			for(int j= 0; j<aerolinea.get(i).getVuelosPlaneados().size();j++){
@@ -456,6 +455,20 @@ public class TestSistemaVuelos {
 			}
 		}
 	}
-
+	
+	/**
+	 * Metodo auxiliar 11, para generar el reporte de los vuelos especificos solicitados
+	 * @param sistema
+	 */
+	public static void reporteArchivoTxt(SistemaVuelos sistema){
+		Scanner sc0= new Scanner(System.in);
+		System.out.println("Ingrese la ciudad de origen");
+		String origen = sc0.nextLine();
+		System.out.println("Ingrese la ciudad de destino");
+		String destino = sc0.nextLine();
+		System.out.println("Ingrese el nombre con el cual quiere guardar el archivo mseguido de .txt");
+		String nombreArchivo = sc0.nextLine();
+		ManejoArchivos.reporteArchivoTxt(sistema, origen, destino, nombreArchivo);
+	}
 
 }

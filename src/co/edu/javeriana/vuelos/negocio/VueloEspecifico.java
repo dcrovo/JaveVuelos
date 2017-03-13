@@ -95,6 +95,15 @@ public class VueloEspecifico {
 		String tarf = String.valueOf(tarifa);
 		return String.format("%s      %s      %s      %d      %d     %s",cod,formattedDate,tipoAvion,capacidad,cuposLibres,tarf);
 	}
+	public String toString2() {
+		String numeroVuelo = vueloPlaneado.getNumeroVuelo();
+		String diaSemana = vueloPlaneado.getDiaSemana();
+		String horaSalida = vueloPlaneado.getHoraSalida();
+		String horaLlegada = vueloPlaneado.getHoraLlegada();
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formattedDate = fecha.format(formato);
+		return String.format("%s      %s      %s      %s      %s", numeroVuelo,diaSemana, horaSalida, horaLlegada,formattedDate);
+	}
 	
 	
 	

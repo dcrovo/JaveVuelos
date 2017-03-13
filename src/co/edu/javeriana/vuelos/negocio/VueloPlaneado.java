@@ -96,6 +96,10 @@ public class VueloPlaneado {
 		return String.format("%s      %s      %s      %s      %s      %s       %s",cod, numeroVuelo,diaSemana, horaSalida, horaLlegada,origen.getNombre(), destino.getNombre());
 	}
 	
+	public String toString2(String fechaVE) {
+		return String.format("%s      %s      %s      %s      %s", numeroVuelo,diaSemana, horaSalida, horaLlegada,fechaVE);
+	}
+	
 	public long crearVueloEspecifico(LocalDateTime fecha,String tipoAvion,int capacidad,long tarifa,VueloPlaneado vueloPlaneado){
 		VueloEspecifico vueloespecificoaux = new VueloEspecifico(fecha,tipoAvion,capacidad,tarifa,vueloPlaneado);
 		vuelosEspecificos.add(vueloespecificoaux);
