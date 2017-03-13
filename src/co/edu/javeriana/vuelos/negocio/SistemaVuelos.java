@@ -54,10 +54,10 @@ public class SistemaVuelos {
 	}
 	public void crearVueloPlaneado(long codigo, String numeroVuelo, String diaSemana, String horaSalida, String horaLlegada,
 			long origen, long destino,int indexAerolinea){
-		long codigoAerolinea = aerolineas.get(indexAerolinea).getCodigo();
+		Aerolinea aerolinea = aerolineas.get(indexAerolinea);
 		Ciudad cOrigen = ciudades.get(buscarCiudadId(origen));
 		Ciudad cDestino = ciudades.get(buscarCiudadId(destino));
-		VueloPlaneado vueloPlaneado = new VueloPlaneado(codigo,numeroVuelo,diaSemana,horaSalida,horaLlegada,cDestino,cOrigen,codigoAerolinea);
+		VueloPlaneado vueloPlaneado = new VueloPlaneado(codigo,numeroVuelo,diaSemana,horaSalida,horaLlegada,cDestino,cOrigen,aerolinea);
 		aerolineas.get(indexAerolinea).getVuelosPlaneados().add(vueloPlaneado);
 		
 		
@@ -97,12 +97,13 @@ public class SistemaVuelos {
 	}
 	
 	public long crearVueloEspecifico(int posAerolinea,int posVueloPlaneado,LocalDateTime fecha,String tipoAvion,int capacidad,long tarifa){
-		long codigoVE = aerolineas.get(posAerolinea).getVuelosPlaneados().get(posVueloPlaneado).crearVueloEspecifico(fecha, tipoAvion, capacidad, tarifa);
+		VueloPlaneado vueloPlaneado = aerolineas.get(posAerolinea).getVuelosPlaneados().get(posVueloPlaneado);
+		long codigoVE = aerolineas.get(posAerolinea).getVuelosPlaneados().get(posVueloPlaneado).crearVueloEspecifico(fecha, tipoAvion, capacidad, tarifa,vueloPlaneado);
 		return codigoVE;
 	}
 	
-	public String reporteAgentes(int i){
-		return agentes.get(i).toString();
+	public String reporteAgentes(int index){
+		return agentes.get(index).toString();
 	}
 	
 
@@ -145,6 +146,108 @@ public class SistemaVuelos {
 		}
 		return aerolineasVER;
 	}
+	/*
+	 * Posicion 0 index aerolinea
+	 * posicion 1 index VuelosPlaneados
+	 * posicion 2 index Vuelos Especificos
+	 */
+	public ArrayList<Integer> buscarVueloEspecificoId(long codigoVE){
+		ArrayList<Integer> out = new ArrayList<Integer>();
+		for(int i=0; i<aerolineas.size(); i++){
+			for(int j=0; j<aerolineas.get(i).getVuelosPlaneados().size();j++){
+				for(int k=0; k<aerolineas.get(i).getVuelosPlaneados().get(j).getVuelosEspecificos().size();k++){
+					if(aerolineas.get(i).getVuelosPlaneados().get(j).getVuelosEspecificos().get(k).getCodigo() == codigoVE){
+						out.add(i);
+						out.add(j);
+						out.add(k);
+						return out;
+						
+					}
+				}
+			}
+		}
+		return out;
+	}
+	
+	/**
+	 * Metodo para verificacion de disponibilidad en los vuelos especificos contenidos en un itinerario
+	 * @param indAgente
+	 * @param indItinerario
+	 * @return
+	 */
+	public boolean VerificarCupoItinerario (int indAgente, int indItinerario){
+		return agentes.get(indAgente).VerificarCupoItinerario(indItinerario);
+	}
+	
+	/**
+	 * Metodo auxiliar para el calculo del valor de un itinerario de acuerdo a la tarifa y la cantidad de pasajeros
+	 * @param indAgente
+	 * @param indItinerario
+	 * @return
+	 */
+	public long CalcularValorItinerario(int indAgente, int indItinerario){
+		return agentes.get(indAgente).CalcularValorItinerario(indItinerario);
+	}
+	
+	/**
+	 * Metodo auxiliar para el cambio del indicador de comprado en un itinerario a true
+	 * @param indAgente
+	 * @param indItinerario
+	 */
+	public void ComprarItinerario(int indAgente,int indItinerario){
+		agentes.get(indAgente).ComprarItinerario(indItinerario);
+	}
+	
+	/**
+	 * Metodo auxiliar para determinar la cantidad de pasajeros de un itinerario
+	 * @param indexAgente
+	 * @param indexItinerario
+	 * @return
+	 */
+	public int cantidadPasajeros(int indexAgente,int indexItinerario){
+		return agentes.get(indexAgente).getItinerarios().get(indexItinerario).getPasajeros().size();
+	}
+	
+	/**
+	 * Determina la cantidad de trayectos existentes dentro de un itinerario en especifico
+	 * @param indexAgente
+	 * @param indexItinerario
+	 * @return
+	 */
+	public int cantidadTrayectos(int indexAgente,int indexItinerario){
+		return agentes.get(indexAgente).getItinerarios().get(indexItinerario).cantidadTrayectos();
+	}
+	
+	/**
+	 * Metodo auxiliar para el reporte de las sillas de cada vuelo especifico en forma matricial
+	 * @param indAgente
+	 * @param indItinerario
+	 * @param indTrayecto
+	 * @param fila
+	 * @return
+	 */
+	public String mostrarSillas(int indAgente,int indItinerario,int indTrayecto,int fila){
+		return agentes.get(indAgente).getItinerarios().get(indItinerario).getTrayectos().get(indTrayecto).getVueloespecifico().MostrarFilaSillas(fila);
+	}
+	
+	/**
+	 * Metodo auxiliar para la compra de un silla en un vuelo especifico
+	 * @param indAgente
+	 * @param indItinerario
+	 * @param indTrayecto
+	 * @param indPasajero
+	 * @param silla
+	 */
+	public void comprarSilla(int indAgente,int indItinerario,int indTrayecto, int indPasajero,String silla){
+		int indSilla =agentes.get(indAgente).buscarSillaId(indItinerario,indTrayecto,silla);
+		agentes.get(indAgente).comprarSilla(indItinerario,indTrayecto,indPasajero,indSilla);
+	}
+	
+	public String reporteTrayectos (int indAgente, int indItinerario,int indTrayecto){
+		return agentes.get(indAgente).getItinerarios().get(indItinerario).getTrayectos().get(indTrayecto).toString();
+	}
+	
+	
 	/*public void reporteCiudades(){
 		for(Ciudad ciudad: ciudades ){
 			

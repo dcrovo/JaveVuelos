@@ -43,7 +43,8 @@ public class Agente {
 	@Override
 	public String toString() {
 		String cod = String.valueOf(codigo);
-		return String.format("%s      %s", cod, nombre);
+		
+		return String.format("%s      %s		%s", cod, nombre,email);
 	}
 	
 	public long crearItinerario(String nomItinerario,Agente agente){
@@ -67,5 +68,35 @@ public class Agente {
 	public void crearPasajero(int indexItinerario,String identificacion,String nombre){
 		itinerarios.get(indexItinerario).crearPasajero(identificacion, nombre);
 	}
+	public void crearTrayecto(int indexItinerario, VueloEspecifico vueloEspecifico, Itinerario itinerario){
+	 itinerarios.get(indexItinerario).crearTrayecto(vueloEspecifico, itinerario);
+	}
+	
+	public boolean VerificarCupoItinerario (int indItinerario){
+		return itinerarios.get(indItinerario).VerificarCupoItinerario();
+	}
+	
+	public long CalcularValorItinerario(int indItinerario){
+		return itinerarios.get(indItinerario).CalcularValorItinerario();
+	}
+	
+	public void ComprarItinerario(int indItinerario){
+		itinerarios.get(indItinerario).setComprado(true);
+	}
+	
+	public int buscarSillaId(int indItinerario,int indTrayecto,String silla){
+		return itinerarios.get(indItinerario).buscarSillaId(indTrayecto, silla);
+	}
+	
+	public void comprarSilla(int indItinerario,int indTrayecto,int indPasajero,int indSilla){
+		itinerarios.get(indItinerario).comprarSilla(indTrayecto,indPasajero, indSilla);
+		itinerarios.get(indItinerario).getPasajeros().get(indPasajero).agregarSilla(indSilla);
+		itinerarios.get(indItinerario).getTrayectos().get(indTrayecto).agregarSilla(indSilla);
+		itinerarios.get(indItinerario).getTrayectos().get(indTrayecto).disminuirCuposVueloEspecifico();
+	}
+	public String reporteItinerarios(int index){
+		return itinerarios.get(index).toString();
+	}
 }
+
 

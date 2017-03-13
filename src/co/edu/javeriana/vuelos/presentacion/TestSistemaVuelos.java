@@ -11,6 +11,13 @@ import java.util.ArrayList;
 
 import co.edu.javeriana.vuelos.negocio.*;
 
+/**
+ * Clase del paquete de presentacion, es el puente de comunicacion con el usuario
+ * 
+ * Cada opcion del menu llama un metodo auxiliar para el desarrollo de las actividades
+ * @author Viviana Leyva
+ *
+ */
 public class TestSistemaVuelos {
 
 	public static void main(String[] args) {
@@ -18,7 +25,9 @@ public class TestSistemaVuelos {
 		int ope=1;
 		Scanner scanner= new Scanner(System.in);
 		
-
+		/**
+		 * Menu
+		 */
 		while (ope!=12){
 			System.out.println("Seleccione una de las siguientes opciones:");
 			//menu
@@ -51,25 +60,23 @@ public class TestSistemaVuelos {
 					IngresarAgentes(sistema);
 					System.out.println("Operaci�n terminada: Agentes listos");
 					break;
-				case 4:
-					
+				case 4:	
 					AgregarVueloEspecifico(sistema);
-					
 					break;
 				case 5:
 					ReporteContenidoAerolineas(sistema);
 					break;
 				case 6:
-			
 					AgregarItinerario (sistema);
-					
 					break;
 				case 7:
 					AgregarTrayecto(sistema);
 					break;
 				case 8:
+					ReporteAgentesItinerariosTrayectos(sistema);
 					break;
 				case 9:
+					ComprarItinerario(sistema);
 					break;
 				case 10:
 					break;
@@ -81,7 +88,10 @@ public class TestSistemaVuelos {
 
 
 	}
-	
+	/**
+	 * Metodo auxiliar 1, para lectura del primer archivo "ciudades"
+	 * @param sistema
+	 */
 	public static void IngresarCiudades (SistemaVuelos sistema){
 		Scanner sc2= new Scanner(System.in);
 		String nombreArchivo="";
@@ -90,6 +100,10 @@ public class TestSistemaVuelos {
 		ManejoArchivos.leerCiudades(sistema, nombreArchivo);
 	}
 		
+	/**
+	 * Metodo auxiliar 2, para lectura del segundo archivo "aerolineas"
+	 * @param sistema
+	 */
 	public static void AgregarAerolineaYVueloEsp (SistemaVuelos sistema){
 		Scanner sc2= new Scanner(System.in);
 		String nombreArchivo="";
@@ -98,6 +112,10 @@ public class TestSistemaVuelos {
 		ManejoArchivos.leerAerolinea(sistema, nombreArchivo);
 	}
 	
+	/**
+	 * Metodo auxiliar 3, para lectura del tercer archivo "agentes"
+	 * @param sistema
+	 */
 	static public void IngresarAgentes(SistemaVuelos sistema){
 		Scanner sc2= new Scanner(System.in);
 		String nombreArchivo="";
@@ -106,8 +124,14 @@ public class TestSistemaVuelos {
 		ManejoArchivos.leerAgentes(sistema, nombreArchivo);
 	}
 	
+	/**
+	 * Metodo auxiliar 4, para agregar un vuelo especifico a un vuelo planeado
+	 * @param sistema
+	 */
 	static public void AgregarVueloEspecifico(SistemaVuelos sistema){
-		//informacion de las aerolineas
+		/*
+		 * informacion de las aerolineas
+		 */
 		System.out.println(" ");
 		System.out.println("Estas son las aerolineas disponibles:");
 		Scanner sc3= new Scanner (System.in);
@@ -121,7 +145,9 @@ public class TestSistemaVuelos {
 		long codigo= Long.parseLong(codAero);
 		int posAerolinea=sistema.buscarAerolineaId(codigo);
 		
-		//informacion de los vuelos planeados
+		/**
+		 * informacion de los vuelos planeados
+		 */
 		System.out.println("--Estos son los vuelos planeados de:"+ sistema.getAerolinea().get(posAerolinea).getNombre());
 		System.out.println("Codigo	Num de vuelo	Dia de semana	HoraSalida	HoraLlegada	  Origen   Destino");
 		for (int i=0; i<sistema.getAerolinea().get(posAerolinea).getVuelosPlaneados().size();i++){
@@ -133,7 +159,9 @@ public class TestSistemaVuelos {
 		long codigoVP= Long.parseLong(codVueloPlaneado);
 		int posVueloPlaneado=sistema.buscarVueloPlaneadoId(posAerolinea,codigoVP);
 		
-		//creacion del vuelo especifico
+		/**
+		 * creacion del vuelo especifico
+		 */
 		System.out.println("");
 		System.out.println("--Indique datos del vuelo espec�fico: fecha(YYYY-MM-DD) tipoAvion capacidad tarifa(US)");
 		String InfoVueloEspecifico= sc3.nextLine();
@@ -151,7 +179,11 @@ public class TestSistemaVuelos {
 				
 		
 	}
-
+	
+	/**
+	 * Metodo auxiliar 5, para el reporte de las aerolineas, sus vuelos planeados y vuelos especificos
+	 * @param sistema
+	 */
 	static public void ReporteContenidoAerolineas (SistemaVuelos sistema){
 		System.out.println("--REPORTE DE AEROLINEAS, VUELOS PLANEADOS Y VUELOS ESPECIFICOS");
 		for(int i=0;i< sistema.getAerolinea().size();i++){
@@ -179,8 +211,15 @@ public class TestSistemaVuelos {
 		}
 	}
 	
+	
+	/**
+	 * Metodo auxiliar 6, para agregar un itinerario
+	 * @param sistema
+	 */
 	static public void AgregarItinerario (SistemaVuelos sistema){
-		//informacion de los agentes
+		/**
+		 * informacion de los agentes
+		 */
 		System.out.println(" ");
 		System.out.println("Estos son los agentes disponibles:");
 		Scanner sc= new Scanner (System.in);
@@ -194,7 +233,9 @@ public class TestSistemaVuelos {
 		long codigo= Long.parseLong(codAge);
 		int posAgente=sistema.buscarAgenteId(codigo);
 		
-		//datos nuevo itinerario
+		/**
+		 * datos nuevo itinerario
+		 */
 		System.out.println("--indique el nombre del nuevo itinerario");
 		String nomItinerario = sc.nextLine();
 		System.out.println(" ");
@@ -214,6 +255,10 @@ public class TestSistemaVuelos {
 		//sc.close();
 	}
 	
+	/**
+	 * Metodo auxiliar 7, para agregar un trayecto a un itinerario
+	 * @param sistema
+	 */
 	public static void AgregarTrayecto (SistemaVuelos sistema){
 		Scanner sc = new Scanner(System.in);
 		ReporteAgentes(sistema);
@@ -236,7 +281,7 @@ public class TestSistemaVuelos {
 		ArrayList<Aerolinea> auxAerolineas = new ArrayList<Aerolinea>();
 		auxAerolineas = sistema.buscarVueloEspecificoRequerimiento(codOrigen, codDestino, fecha);
 		if(auxAerolineas.size() == 0){
-			System.out.println("--No existen cuelos especificos que cumplan los requerimientos:");	
+			System.out.println("--No existen vuelos especificos que cumplan los requerimientos:");	
 		}
 		if(auxAerolineas.size() != 0){
 			System.out.println("Ingrese el código del vuelo especifico:\n--------------------\n\n");
@@ -244,22 +289,57 @@ public class TestSistemaVuelos {
 
 			reporteVueloEspecifico(auxAerolineas);
 			long codVueloEspecifico = Long.parseLong(sc.nextLine());
+			ArrayList<Integer> vueloEIndex= sistema.buscarVueloEspecificoId(codVueloEspecifico);
+			if(vueloEIndex.size() == 0){
+				System.out.println("--Ingrese el codigo de vuelo especifico correctamente");	
+			}
+			if(vueloEIndex.size() != 0){
+				VueloEspecifico auxVueloEspecifico = sistema.getAerolinea().get(vueloEIndex.get(0)).getVuelosPlaneados().get(vueloEIndex.get(1)).getVuelosEspecificos().get(vueloEIndex.get(2));
+				Itinerario auxItinerario = sistema.getAgentes().get(indexAgente).getItinerarios().get(indexItinerario);
+				sistema.getAgentes().get(indexAgente).crearTrayecto(indexItinerario, auxVueloEspecifico, auxItinerario);
+				int tam =sistema.getAgentes().get(indexAgente).getItinerarios().get(indexItinerario).getTrayectos().size();
+				Trayecto auxTrayecto=sistema.getAgentes().get(indexAgente).getItinerarios().get(indexItinerario).getTrayectos().get(tam-1);
+				sistema.getAgentes().get(indexAgente).getItinerarios().get(indexItinerario).getTrayectos().get(tam-1).getVueloespecifico().agregarTrayecto(auxTrayecto);
+				sistema.getAerolinea().get(vueloEIndex.get(0)).getVuelosPlaneados().get(vueloEIndex.get(1)).getVuelosEspecificos().get(vueloEIndex.get(2));
+			}
+			
 		}
 	//	System.out.println(sistema.buscarVueloEspecificoRequerimiento(codOrigen, codDestino, fecha));	
 		
 
-
-		
 	}
 	
-	
-	public static void ReporteAgentes (SistemaVuelos sistema){
-		System.out.println("Codigo --- Nombre");
+	/**
+	 * Metodo auxiliar 8, para Reporte de agentes, itinerarios y trayectos
+	 * @param sistema
+	 */
+	public static void ReporteAgentes(SistemaVuelos sistema){
+		
+		System.out.println("Codigo --- Nombre ---- Email");
 		for (int i=0; i<sistema.getAgentes().size();i++){
 			System.out.println(sistema.reporteAgentes(i));
 		}
-		System.out.println("");
 	}
+
+	public static void ReporteAgentesItinerariosTrayectos(SistemaVuelos sistema){
+		System.out.println("Codigo --- Nombre ---- Email");
+		for (int i=0; i<sistema.getAgentes().size();i++){
+			System.out.println(sistema.reporteAgentes(i));
+			System.out.println("---------------------------------------------------\n	Itinerarios del agente " + sistema.getAgentes().get(i).getNombre() + ":\n");
+			System.out.println("Codigo --- Nombre ---- Comprado");
+			for(int j=0;j<sistema.getAgentes().get(i).getItinerarios().size();j++){
+				System.out.println(sistema.getAgentes().get(i).reporteItinerarios(j));
+				System.out.println("-----------------------------------------------\n	Trayectos del itinerario " + sistema.getAgentes().get(i).getItinerarios().get(j).getNombre() + ":\n");
+				System.out.println("Id --- Codigo ---- Fecha Codigo	Num de vuelo	Dia de semana	HoraSalida	HoraLlegada	  Origen   Destino");
+				for(int k=0; k<sistema.getAgentes().get(i).getItinerarios().get(j).getTrayectos().size(); k++){
+					System.out.println(sistema.getAgentes().get(i).getItinerarios().get(j).reporteTrayectos(k) + " " +sistema.getAgentes().get(i).getItinerarios().get(j).getTrayectos().get(k).getVueloespecifico().toString() );
+				}
+
+			}
+		}
+	}
+	
+
 	
 	public static void ReporteItinerario (SistemaVuelos sistema, int indexAgente){
 
@@ -273,14 +353,100 @@ public class TestSistemaVuelos {
 		}
 	}
 	
-	public void ComprarItinerario (){
-		
-	}
-
-	public void MostrarTiqueteElectronico (){
-		
+	/**
+	 * Metodo auxiliar 9, para comprar un itinerario
+	 * @param sistema
+	 */
+	static public void ComprarItinerario (SistemaVuelos sistema){
+		/**
+		 * Reporte de agentes
+		 */
+		System.out.println("--Bienvenido a la seccion de compras de itinerario");
+		System.out.println("Seleccione uno de los siguientes agentes: (codigo)");
+		ReporteAgentes(sistema);
+		Scanner sc9= new Scanner (System.in);
+		long codAgente= Long.parseLong(sc9.nextLine());
+		int indexAgente = sistema.buscarAgenteId(codAgente);
+		/**
+		 * Reporte de itinerarios
+		 */
+		System.out.println("Seleccione uno de los siguientes itinerarios: (codigo)");
+		ReporteItinerario(sistema,indexAgente);
+		long codItinerario= Long.parseLong(sc9.nextLine());
+		int indexItinerario = sistema.getAgentes().get(indexAgente).buscarItinerarioId(codItinerario);
+		/**
+		 * Verificacion de disponibilidad en los aviones de vuelos especificos
+		 */
+		if(sistema.VerificarCupoItinerario (indexAgente,indexItinerario)==true){
+			/**
+			 * informacion del costo del itinerario 
+			 */
+			System.out.println("El costo del itinerario: "+codItinerario+" ,es:" +sistema.CalcularValorItinerario(indexAgente, indexItinerario));
+			/**
+			 * Cambio del estado del itinerario a comprado
+			 */
+			sistema.ComprarItinerario(indexAgente, indexItinerario);
+			/**
+			 * Visualizacion de las sillas por cada pasajero y trayecto
+			 */
+			for(int i=0;i<sistema.cantidadPasajeros(indexAgente,indexItinerario);i++){
+				for(int j=0;j<sistema.cantidadTrayectos(indexAgente, indexItinerario);j++){
+					System.out.println("Pasajero: "+sistema.getAgentes().get(indexAgente).getItinerarios().get(indexItinerario).getPasajeros().get(i).getNombre());
+					System.out.println("Trayecto: "+sistema.getAgentes().get(indexAgente).getItinerarios().get(indexItinerario).getTrayectos().get(j).getId());
+					System.out.println("Seleccione uno de las sillas disponibles (D):");
+					for(int k=0;k<10;k++){
+						System.out.println(sistema.mostrarSillas(indexAgente,indexItinerario,j,k));
+					}
+					String silla= sc9.nextLine();
+					sistema.comprarSilla(indexAgente, indexItinerario,j,i, silla);
+				}
+			}
+		}
+		else{
+			System.out.println("No hay cupo disponible en este itinerario");
+		}
 	}
 	
+	/**
+	 * Metodo auxiliar 10, para el resumido de la compra del pasajero
+	 * @param sistema
+	 */
+	public void MostrarTiqueteElectronico (SistemaVuelos sistema){
+		/**
+		 * Reporte de agentes
+		 */
+		System.out.println("--Tiquete Electronico");
+		System.out.println("Seleccione uno de los siguientes agentes: (codigo)");
+		ReporteAgentes(sistema);
+		Scanner sc9= new Scanner (System.in);
+		long codAgente= Long.parseLong(sc9.nextLine());
+		int indexAgente = sistema.buscarAgenteId(codAgente);
+		/**
+		 * Reporte de itinerarios
+		 */
+		System.out.println("Seleccione uno de los siguientes itinerarios: (codigo)");
+		ReporteItinerario(sistema,indexAgente);
+		long codItinerario= Long.parseLong(sc9.nextLine());
+		int indexItinerario = sistema.getAgentes().get(indexAgente).buscarItinerarioId(codItinerario);
+		if (sistema.getAgentes().get(indexAgente).getItinerarios().get(indexItinerario).isComprado()==true){
+			ReporteItinerario(sistema,indexAgente);
+			System.out.println("El valor del itinerario es: $"+sistema.CalcularValorItinerario(indexAgente, indexItinerario));
+			System.out.println("id----codigo-----fecha");
+			for(int k=0;k<sistema.getAgentes().get(indexAgente).getItinerarios().get(indexItinerario).getTrayectos().size();k++){
+				System.out.println(sistema.reporteTrayectos(indexAgente, indexItinerario, k));
+				System.out.println("Codigo	Num de vuelo	Dia de semana	HoraSalida	HoraLlegada	  Origen   Destino");
+				System.out.println(sistema.getAgentes().get(indexAgente).getItinerarios().get(indexItinerario).getTrayectos().get(k).getVueloespecifico().getVueloPlaneado().toString());
+			}
+		}
+		else{
+			System.out.println("el itinerario no ha sido comprado, operacion cancelada");
+		}
+	}
+	
+	/**
+	 * Metodo auxiliar 11, para generar el reporte de los vuelos especificos solicitados
+	 * @param sistema
+	 */
 	public static void reporteVueloEspecifico (ArrayList<Aerolinea> aerolinea){
 		for(int i = 0; i<aerolinea.size();i++){
 			for(int j= 0; j<aerolinea.get(i).getVuelosPlaneados().size();j++){

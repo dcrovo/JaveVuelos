@@ -12,11 +12,11 @@ public class VueloPlaneado {
 	private ArrayList<VueloEspecifico> vuelosEspecificos = new ArrayList<VueloEspecifico>();
 	private Ciudad destino;
 	private Ciudad origen;
-	private long codigoAerolinea;
+	private Aerolinea aerolinea;
 	
 	
 	public VueloPlaneado(long codigo, String numeroVuelo, String diaSemana, String horaSalida, String horaLlegada,
-			 Ciudad destino, Ciudad origen,long codigoAerolinea) {
+			 Ciudad destino, Ciudad origen,Aerolinea aerolinea) {
 		
 		this.codigo = codigo;
 		this.numeroVuelo = numeroVuelo;
@@ -25,7 +25,7 @@ public class VueloPlaneado {
 		this.horaLlegada = horaLlegada;
 		this.destino = destino;
 		this.origen = origen;
-		this.codigoAerolinea = codigoAerolinea;
+		this.aerolinea = aerolinea;
 	
 	}
 	
@@ -80,15 +80,13 @@ public class VueloPlaneado {
 	}
 
 
-
-
-	public long getCodigoAerolinea() {
-		return codigoAerolinea;
+	public Aerolinea getAerolinea() {
+		return aerolinea;
 	}
 
 
-	public void setCodigoAerolinea(long codigoAerolinea) {
-		this.codigoAerolinea = codigoAerolinea;
+	public void setAerolinea(Aerolinea aerolinea) {
+		this.aerolinea = aerolinea;
 	}
 
 
@@ -98,8 +96,8 @@ public class VueloPlaneado {
 		return String.format("%s      %s      %s      %s      %s      %s       %s",cod, numeroVuelo,diaSemana, horaSalida, horaLlegada,origen.getNombre(), destino.getNombre());
 	}
 	
-	public long crearVueloEspecifico(LocalDateTime fecha,String tipoAvion,int capacidad,long tarifa){
-		VueloEspecifico vueloespecificoaux = new VueloEspecifico(fecha,tipoAvion,capacidad,tarifa,codigo);
+	public long crearVueloEspecifico(LocalDateTime fecha,String tipoAvion,int capacidad,long tarifa,VueloPlaneado vueloPlaneado){
+		VueloEspecifico vueloespecificoaux = new VueloEspecifico(fecha,tipoAvion,capacidad,tarifa,vueloPlaneado);
 		vuelosEspecificos.add(vueloespecificoaux);
 		return vuelosEspecificos.get(vuelosEspecificos.size()-1).getCodigo();
 	}
@@ -118,6 +116,5 @@ public class VueloPlaneado {
 
 	return VE;
 	}
-}
-
 	
+}

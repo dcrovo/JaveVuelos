@@ -59,5 +59,46 @@ public class Itinerario {
 	public String toString() {
 		return String.format("%-3d %-15s %-5b", codigo,nombre,comprado);
 	}
+	public void crearTrayecto(VueloEspecifico vueloEspecifico, Itinerario itinerario){
+		Trayecto trayecto = new Trayecto(vueloEspecifico, itinerario);
+		trayectos.add(trayecto);
+	}
 	
+	
+	public boolean VerificarCupoItinerario(){
+		boolean hayCupo=false;
+		for (int i=0;i<trayectos.size();i++){
+			if(trayectos.get(i).getVueloespecifico().getCapacidad()>=pasajeros.size()){
+				continue;
+			}
+			else{
+				return hayCupo;
+			}
+		}
+		hayCupo=true;
+		return hayCupo;
+	}
+	
+	public long CalcularValorItinerario(){
+		long costo=0;
+		for (int i=0;i<trayectos.size();i++){
+			costo=costo+((trayectos.get(i).ValorTrayecto())*(pasajeros.size()));
+		}
+		return costo;
+	}
+	
+	public int cantidadTrayectos(){
+		return trayectos.size();
+	}
+	
+	public int buscarSillaId(int indTrayecto,String silla){
+		return trayectos.get(indTrayecto).buscarSillaId(silla);
+	}
+	
+	public void comprarSilla(int indTrayecto,int indPasajero,int indSilla){
+		trayectos.get(indTrayecto).comprarSilla(indSilla);
+	}
+	public String reporteTrayectos(int index){
+		return trayectos.get(index).toString();
+	}
 }

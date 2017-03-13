@@ -9,13 +9,11 @@ public class Silla {
 	private Pasajero pasajero;
 	
 	
-	public Silla(String id, boolean comprada, Trayecto trayecto, VueloEspecifico vueloEspecifico, Pasajero pasajero) {
+	public Silla(String id) {
 
 		this.id = id;
-		this.comprada = comprada;
-		this.trayecto = trayecto;
-		this.vueloEspecifico = vueloEspecifico;
-		this.pasajero = pasajero;
+		this.comprada = false;
+
 	}
 	
 	
@@ -49,4 +47,18 @@ public class Silla {
 	public void setPasajero(Pasajero pasajero) {
 		this.pasajero = pasajero;
 	}
+	
+	@Override
+	public String toString() {
+		String comp;
+		if(comprada==true){
+			comp="O";//ocupada
+		}
+		else{
+			comp="D";//disponible
+		}
+		return String.format("-%s %s-", id,comp);
+	}
+	
+
 }

@@ -1,5 +1,6 @@
 package co.edu.javeriana.vuelos.negocio;
 
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 public class Trayecto {
 	
@@ -10,11 +11,11 @@ public class Trayecto {
 		private Itinerario itinerario;
 		
 		
-		public Trayecto(VueloEspecifico vueloespecifico, ArrayList<Silla> sillas, Itinerario itinerario) {
+		public Trayecto(VueloEspecifico vueloespecifico,  Itinerario itinerario) {
 			CONSECUTIVO++;
 			this.id = CONSECUTIVO;
 			this.vueloespecifico = vueloespecifico;
-			this.sillas = sillas;
+			//this.sillas = sillas;
 			this.itinerario = itinerario;
 		}
 		
@@ -40,4 +41,36 @@ public class Trayecto {
 		public void setItinerario(Itinerario itinerario) {
 			this.itinerario = itinerario;
 		}
+		
+		public long ValorTrayecto(){
+			return vueloespecifico.getTarifa();
+		}
+		
+		public int buscarSillaId(String silla){
+			return vueloespecifico.buscarSillaId(silla);
+		}
+		
+		public void comprarSilla(int indSilla){
+			vueloespecifico.comprarSilla(indSilla);
+		}
+		
+		public void agregarSilla(int indSilla){
+			sillas.add(vueloespecifico.getSillas().get(indSilla));
+		}
+		
+		public void disminuirCuposVueloEspecifico(){
+			vueloespecifico.setCuposLibres(vueloespecifico.getCuposLibres()-1);
+		}
+
+
+		@Override
+		public String toString() {
+			String cod=String.valueOf(vueloespecifico.getCodigo());
+			DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			String formattedDate = vueloespecifico.getFecha().format(formato);
+			return String.format("%d   		 %s     %s",id,cod,formattedDate);
+		}
+		
+		
+
 }

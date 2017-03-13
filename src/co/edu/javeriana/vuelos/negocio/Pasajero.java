@@ -32,4 +32,7 @@ public class Pasajero {
 		this.sillas = sillas;
 	}
 	
+	public void agregarSilla(int indSilla){
+		sillas.add(sillas.get(indSilla));
+	}
 }
