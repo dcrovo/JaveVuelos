@@ -57,7 +57,7 @@ public class Silla {
 		else{
 			comp="D";//disponible
 		}
-		return String.format("-%s %s-", id,comp);
+		return String.format("-%s %s-  ", id,comp);
 	}
 	
 

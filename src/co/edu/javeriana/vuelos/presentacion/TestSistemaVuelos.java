@@ -109,7 +109,7 @@ public class TestSistemaVuelos {
 	public static void AgregarAerolineaYVueloEsp (SistemaVuelos sistema){
 		Scanner sc2= new Scanner(System.in);
 		String nombreArchivo="";
-		System.out.println("Ingrese el nombre del archivo");
+		System.out.println("Ingrese el nombre del archivo de Aerolineas");
 		nombreArchivo = sc2.nextLine();
 		ManejoArchivos.leerAerolinea(sistema, nombreArchivo);
 	}
@@ -121,7 +121,7 @@ public class TestSistemaVuelos {
 	static public void IngresarAgentes(SistemaVuelos sistema){
 		Scanner sc2= new Scanner(System.in);
 		String nombreArchivo="";
-		System.out.println("Ingrese el nombre del archivo");
+		System.out.println("Ingrese el nombre del archivo de Agentes");
 		nombreArchivo = sc2.nextLine();
 		ManejoArchivos.leerAgentes(sistema, nombreArchivo);
 	}

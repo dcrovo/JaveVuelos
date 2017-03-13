@@ -14,7 +14,6 @@ public class VueloEspecifico {
 	private long tarifa;
 	private ArrayList<Silla> sillas = new ArrayList<Silla>();
 	private ArrayList<Trayecto> trayectos = new ArrayList<Trayecto>();
-
 	private VueloPlaneado vueloPlaneado;
 	
 	
@@ -72,8 +71,6 @@ public class VueloEspecifico {
 	public void setSillas(ArrayList<Silla> sillas) {
 		this.sillas = sillas;
 	}
-	
-
 	public VueloPlaneado getVueloPlaneado() {
 		return vueloPlaneado;
 	}
@@ -119,10 +116,10 @@ public class VueloEspecifico {
 				   + "22A 22B 22C 22D 22E 23A 23B 23C 23D 23E 24A 24B 24C 24D 24E "
 				   + "25A 25B 25C 25D 25E 26A 26B 26C 26D 26E 27A 27B 27C 27D 27E "
 				   + "28A 28B 28C 28D 28E 29A 29B 29C 29D 29E 30A 30B 30C 30D 30E ";
-				
+		StringTokenizer tokens = new StringTokenizer(ids," ");
+
 		for(int i=0;i<150;i++){
-			StringTokenizer tokens = new StringTokenizer(ids," ");
-			Silla sillaaux=new Silla(tokens.nextToken());
+			Silla sillaaux=new Silla(tokens.nextToken().trim());
 			sillasaux.add(sillaaux);
 		}
 		return sillasaux;	
@@ -132,8 +129,11 @@ public class VueloEspecifico {
 		int SillaInicial=fila*15;
 		int SillaFinal=SillaInicial+14;
 		String resultado="";
+		String resultado3;
+
 		for(int i=SillaInicial;i<SillaFinal;i++){
-			resultado.concat(sillas.get(i).toString());
+			resultado=resultado.concat(sillas.get(i).toString());
+			resultado3=sillas.get(i).toString();
 		}
 		return resultado;
 	}

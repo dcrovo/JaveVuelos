@@ -89,8 +89,9 @@ public class Agente {
 	}
 	
 	public void comprarSilla(int indItinerario,int indTrayecto,int indPasajero,int indSilla){
+		ArrayList<Silla>Sillas = itinerarios.get(indItinerario).getTrayectos().get(indTrayecto).getVueloespecifico().getSillas();
 		itinerarios.get(indItinerario).comprarSilla(indTrayecto,indPasajero, indSilla);
-		itinerarios.get(indItinerario).getPasajeros().get(indPasajero).agregarSilla(indSilla);
+		itinerarios.get(indItinerario).getPasajeros().get(indPasajero).agregarSilla(Sillas,indSilla);
 		itinerarios.get(indItinerario).getTrayectos().get(indTrayecto).agregarSilla(indSilla);
 		itinerarios.get(indItinerario).getTrayectos().get(indTrayecto).disminuirCuposVueloEspecifico();
 	}
