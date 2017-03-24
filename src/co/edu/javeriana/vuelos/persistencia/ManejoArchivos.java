@@ -6,7 +6,11 @@ import java.io.*;
 import co.edu.javeriana.vuelos.negocio.*;
 
 public class ManejoArchivos {
-	
+	/**
+	 * Metodo para extraer los datos del archivo ciudades
+	 * @param sistema
+	 * @param nombreArchivo
+	 */
 	public static void leerCiudades(SistemaVuelos sistema, String nombreArchivo){
 		long codigo;
 		String nombre;
@@ -37,7 +41,11 @@ public class ManejoArchivos {
 		
 		
 	}
-	
+	/**
+	 * Metodo para extraer los datos del archivo de Agentes
+	 * @param sistema
+	 * @param nombreArchivo
+	 */
 	public static void leerAgentes(SistemaVuelos sistema,String nombreArchivo){
 		
 		long codigo;
@@ -69,7 +77,12 @@ public class ManejoArchivos {
 
 		}
 	}
-	
+	/**
+	 * Metodo para extraer los datos del archivo de Aerolinea
+	 * @param sistema
+	 * @param nombreArchivo
+	 */
+
 	public static void leerAerolinea(SistemaVuelos sistema, String nombreArchivo){
 		int i=-1;
 		long codigo,codigoVuelo,origen,destino;
@@ -119,7 +132,14 @@ public class ManejoArchivos {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Metodo para generar el archivo de reporte
+	 * @param sistema
+	 * @param nombreArchivo
+	 * @param destino
+	 * @param origen
+	 */
+
 	public static void reporteArchivoTxt(SistemaVuelos sistema, String origen, String destino, String nombreArchivo){
 		int indexOrigen = sistema.buscarCiudadNombre(origen);
 		int indexDestino = sistema.buscarCiudadNombre(destino);

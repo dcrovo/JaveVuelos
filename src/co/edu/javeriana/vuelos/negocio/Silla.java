@@ -1,14 +1,25 @@
 package co.edu.javeriana.vuelos.negocio;
 
+/**
+ * clase silla de JaveVuelos, cada pasajero y vuelo especifico tienen asociadas unas listas de sillas 
+ * @author Viviana Leyva
+ *@author daniel
+ */
 public class Silla {
 
+	/**
+	 * atributos de silla
+	 */
 	private String id;
 	private boolean comprada;
 	private Trayecto trayecto;
 	private VueloEspecifico vueloEspecifico;
 	private Pasajero pasajero;
 	
-	
+	/**
+	 * Constructor: para instanciar una silla solo se necesita conocer su id
+	 * @param id
+	 */
 	public Silla(String id) {
 
 		this.id = id;
@@ -47,7 +58,9 @@ public class Silla {
 	public void setPasajero(Pasajero pasajero) {
 		this.pasajero = pasajero;
 	}
-	
+	/**
+	 * metodo para concatenacion de la informacion de una silla, se evaluar "comprada" y se asigna una letra para facilidad de visualizacion del usuario
+	 */
 	@Override
 	public String toString() {
 		String comp;

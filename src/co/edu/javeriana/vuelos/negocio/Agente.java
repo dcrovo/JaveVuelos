@@ -1,13 +1,29 @@
 package co.edu.javeriana.vuelos.negocio;
 
+
 import java.util.*;
+/**
+ * Clase agente del proyecto JaveVuelos, el sistema tiene varios agentes que se instancian a partir del archivo "Agentes" con ayuda del manejador de archivos
+ * @author Viviana Leyva
+ * @author daniel 
+ */
 public class Agente {
 
+	/**
+	 * Atributos de un agente
+	 */
 	private long codigo;
 	private String nombre;
 	private String email;
 	private ArrayList<Itinerario> itinerarios= new ArrayList<Itinerario>();
 	
+	
+	/**
+	 * Constructor: No necesita conocer los itinerarios para instanciar una agencia
+	 * @param codigo 
+	 * @param nombre
+	 * @param email
+	 */
 	public Agente(long codigo, String nombre, String email) {
 		
 		this.codigo = codigo;
@@ -15,6 +31,11 @@ public class Agente {
 		this.email = email;
 	}
 	
+	/**
+	 * 
+	 * Getters y Setters de los atributos de agente
+	 * @return
+	 */
 	public long getCodigo() {
 		return codigo;
 	}
@@ -47,6 +68,13 @@ public class Agente {
 		return String.format("%s      %s		%s", cod, nombre,email);
 	}
 	
+	
+	/**
+	 * Metodo para la instanciacion y asociacion de un itinerario con un agente 
+	 * @param nomItinerario nombre del itinerario 
+	 * @param agente Agente al que se asociara el itinerario
+	 * @return Retorna el codigo con el que quedo registrado el itinerario en el sistema de forma automatica
+	 */
 	public long crearItinerario(String nomItinerario,Agente agente){
 		Itinerario itinerarioaux= new Itinerario (nomItinerario,agente);
 		
@@ -54,7 +82,11 @@ public class Agente {
 	
 		return itinerarios.get(itinerarios.size()-1).getCodigo();
 	}
-	
+	/**
+	 * Metodo para buscar el indice de un itinerario especifico a partir de su codigo
+	 * @param codigo codigo del itinerario a buscar
+	 * @return indice del itinerario deseado
+	 */
 	public int buscarItinerarioId(long codigo){
 		int index = -1;
 		for(Itinerario itinerario : itinerarios){
@@ -65,29 +97,70 @@ public class Agente {
 		}
 		return index;
 	}
+	/**
+	 * Metodo intermedio para crear un pasajero
+	 * @param indexItinerario indice del itinerario asociado al pasajero
+	 * @param identificacion numero de identificacion del nuevo pasajero 
+	 * @param nombre nombre del nuevo pasajero
+	 */
 	public void crearPasajero(int indexItinerario,String identificacion,String nombre){
 		itinerarios.get(indexItinerario).crearPasajero(identificacion, nombre);
 	}
+	
+	/**
+	 * metodo intermedio para la creacion de un trayecto asociado a un itinerario de un agente
+	 * @param indexItinerario 
+	 * @param vueloEspecifico
+	 * @param itinerario
+	 */
 	public void crearTrayecto(int indexItinerario, VueloEspecifico vueloEspecifico, Itinerario itinerario){
 	 itinerarios.get(indexItinerario).crearTrayecto(vueloEspecifico, itinerario);
 	}
 	
+	/**
+	 * Metodo para verificacion de disponibilidad de cupo en un itinerario
+	 * @param indItinerario indice del itinerario deseado
+	 * @return si o no dependiendo de la disponibilidad
+	 */
 	public boolean VerificarCupoItinerario (int indItinerario){
 		return itinerarios.get(indItinerario).VerificarCupoItinerario();
 	}
 	
+	/**
+	 * metodo intermedio para el calculo del costo de un itinerario existente asociado a un agente
+	 * @param indItinerario
+	 * @return
+	 */
 	public long CalcularValorItinerario(int indItinerario){
 		return itinerarios.get(indItinerario).CalcularValorItinerario();
 	}
 	
+	/**
+	 * metodo para el cambio del indicador de compra de un itinerario 
+	 * @param indItinerario
+	 */
 	public void ComprarItinerario(int indItinerario){
 		itinerarios.get(indItinerario).setComprado(true);
 	}
 	
+	/**
+	 * metodo para buscar el indice de una silla a partir del id de una silla
+	 * @param indItinerario indice del itinerario asociado al trayecto que contiene la silla buscada
+	 * @param indTrayecto indice del trayecto que contiene la silla buscada
+	 * @param silla id de la silla buscada
+	 * @return indice de la silla deseada
+	 */
 	public int buscarSillaId(int indItinerario,int indTrayecto,String silla){
 		return itinerarios.get(indItinerario).buscarSillaId(indTrayecto, silla);
 	}
 	
+	/**
+	 * metodo para comprar una silla, se cambia el estado de la silla a comprado, se asocia a un trayecto y un pasajero y se disminuye la capacidad de un vuelo especifico
+	 * @param indItinerario indice del itinerario donde esta la silla
+	 * @param indTrayecto indice del trayecto donde esta la silla
+	 * @param indPasajero indice del pasajero que compro la silla 
+	 * @param indSilla indice de la silla deseada
+	 */
 	public void comprarSilla(int indItinerario,int indTrayecto,int indPasajero,int indSilla){
 		ArrayList<Silla>Sillas = itinerarios.get(indItinerario).getTrayectos().get(indTrayecto).getVueloespecifico().getSillas();
 		itinerarios.get(indItinerario).comprarSilla(indTrayecto,indPasajero, indSilla);
@@ -95,6 +168,11 @@ public class Agente {
 		itinerarios.get(indItinerario).getTrayectos().get(indTrayecto).agregarSilla(indSilla);
 		itinerarios.get(indItinerario).getTrayectos().get(indTrayecto).disminuirCuposVueloEspecifico();
 	}
+	/**
+	 * metodo auxiliar para la generacion del reporte de un itinerario 
+	 * @param index indice del itinerario deseado
+	 * @return la concatenacion de la informacion del itinerario
+	 */
 	public String reporteItinerarios(int index){
 		return itinerarios.get(index).toString();
 	}

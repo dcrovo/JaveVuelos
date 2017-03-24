@@ -3,6 +3,12 @@ package co.edu.javeriana.vuelos.negocio;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+/**
+ * clase VueloEspecifico de JaveVuelos, cada trayecto tiene asociado un vuelo especifico y cada vuelo planeado puede tener asociado varios vuelo especificos
+ * @author Viviana Leyva
+ *@author daniel
+ */
 public class VueloEspecifico {
 
 	private static long CONSECUTIVO=0;
@@ -16,7 +22,15 @@ public class VueloEspecifico {
 	private ArrayList<Trayecto> trayectos = new ArrayList<Trayecto>();
 	private VueloPlaneado vueloPlaneado;
 	
-	
+	/**
+	 * Constructor: no es necesario indicar el codigo, el sistema lo genera automaticamente. 
+	 * No es neceario indicar las sillas ni los trayectos para la creacion de un vuelo especifico
+	 * @param fecha
+	 * @param tipoAvion
+	 * @param capacidad
+	 * @param tarifa
+	 * @param vueloPlaneado
+	 */
 	public VueloEspecifico(LocalDateTime fecha, String tipoAvion, int capacidad, long tarifa,VueloPlaneado vueloPlaneado) {
 		CONSECUTIVO++;
 		this.codigo = CONSECUTIVO;
@@ -103,7 +117,10 @@ public class VueloEspecifico {
 	}
 	
 	
-	
+	/**
+	 * metodo para la creacion de las 150 sillas posibles a partir de su id
+	 * @return el arreglo de sillas para la asociacion al vuelo especifico
+	 */
 	public ArrayList<Silla> CrearSillas(){
 		ArrayList<Silla> sillasaux = new ArrayList<Silla>();
 		String ids = "1A 1B 1C 1D 1E 2A 2B 2C 2D 2E 3A 3B 3C 3D 3E "
@@ -124,20 +141,26 @@ public class VueloEspecifico {
 		}
 		return sillasaux;	
 	}
-	
+	/**
+	 * metodo auxiiar para la visualizacion de las sillas de forma ordenada
+	 * @param fila entero de 0 a 10 
+	 * @return la concatenacion de los indices y disponibilidad de las sillas
+	 */
 	public String MostrarFilaSillas(int fila){
 		int SillaInicial=fila*15;
 		int SillaFinal=SillaInicial+14;
 		String resultado="";
-		String resultado3;
 
 		for(int i=SillaInicial;i<SillaFinal;i++){
 			resultado=resultado.concat(sillas.get(i).toString());
-			resultado3=sillas.get(i).toString();
 		}
 		return resultado;
 	}
-	
+	/**
+	 * metodo para buscar el indice de una silla a partir de su id
+	 * @param silla id de la silla
+	 * @return indice de la silla deseada
+	 */
 	public int buscarSillaId(String silla){
 		int index=-1;
 		for(int i=0;i<sillas.size();i++){
@@ -148,10 +171,17 @@ public class VueloEspecifico {
 		}
 		return index;
 	}
-	
+	/**
+	 * metodo para cambiar el estado de una silla asociada al vuelo especifico
+	 * @param indSilla indice de la silla deseada
+	 */
 	public void comprarSilla(int indSilla){
 		sillas.get(indSilla).setComprada(true);
 	}
+	/**
+	 * metodo para asociar un trayecto al vuelo especifico
+	 * @param trayecto
+	 */
 	public void agregarTrayecto(Trayecto trayecto) {
 		trayectos.add(trayecto);
 	}

@@ -2,15 +2,26 @@ package co.edu.javeriana.vuelos.negocio;
 
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+/**
+ * clase trayecto, cada itinerario tiene asociados varios trayectos
+ * @author Viviana Leyva
+ *@author daniel
+ */
 public class Trayecto {
-	
+	/**
+	 * atributos de la clase trayecto
+	 */
 		private static int CONSECUTIVO=0;
 		private int id;
 		private VueloEspecifico vueloespecifico;
 		private ArrayList<Silla> sillas= new ArrayList<Silla>(); 
 		private Itinerario itinerario;
 		
-		
+		/**
+		 * constructor: para instanciar un trayecto solo necesita vuelo especifico e itinerario; el id se genera de fomar automatica con ayuda del consecutivo
+		 * @param vueloespecifico
+		 * @param itinerario
+		 */	
 		public Trayecto(VueloEspecifico vueloespecifico,  Itinerario itinerario) {
 			CONSECUTIVO++;
 			this.id = CONSECUTIVO;
@@ -41,23 +52,40 @@ public class Trayecto {
 		public void setItinerario(Itinerario itinerario) {
 			this.itinerario = itinerario;
 		}
-		
+		/**
+		 * metodo para obtener la tarifa de un vuelo especifico asociado al trayecto
+		 * @return tarifa
+		 */
 		public long ValorTrayecto(){
 			return vueloespecifico.getTarifa();
 		}
 		
+		
+		/**
+		 * metodo para hallar el indice de una silla a partir de su id 
+		 * @param silla id de la silla
+		 * @return indice de la silla
+		 */
 		public int buscarSillaId(String silla){
 			return vueloespecifico.buscarSillaId(silla);
 		}
-		
+		/**
+		 * metodo para comprar una silla asociada a un vuelo especifico del trayecto
+		 * @param indSilla indice de la silla deseada
+		 */
 		public void comprarSilla(int indSilla){
 			vueloespecifico.comprarSilla(indSilla);
 		}
-		
+		/**
+		 * metodo para asociar una silla al vuelo especifico del trayecto
+		 * @param indSilla indice de la silla deseada
+		 */
 		public void agregarSilla(int indSilla){
 			sillas.add(vueloespecifico.getSillas().get(indSilla));
 		}
-		
+		/**
+		 * metodo para disminuir el cupo disponible enun vuelo especifico
+		 */
 		public void disminuirCuposVueloEspecifico(){
 			vueloespecifico.setCuposLibres(vueloespecifico.getCuposLibres()-1);
 		}

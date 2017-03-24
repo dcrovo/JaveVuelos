@@ -2,8 +2,16 @@ package co.edu.javeriana.vuelos.negocio;
 
 import java.time.LocalDateTime;
 import java.util.*;
+
+/**
+ * clase VueloPlaneado, cada aerolinea tiene una lista de vuelos planeados conocidos a partir de la lectura del archivo "aerolineas"
+ * @author Viviana Leyva
+ *
+ */
 public class VueloPlaneado {
-	
+	/**
+	 * atributos de VueloPlaneado
+	 */	
 	private long codigo;
 	private String numeroVuelo;
 	private String diaSemana;
@@ -13,7 +21,17 @@ public class VueloPlaneado {
 	private Ciudad destino;
 	private Ciudad origen;
 	private Aerolinea aerolinea;
-	
+	/**
+	 * Constructor: para instanciar un vuelo planeado no es necesario conocer los vuelos especificos
+	 * @param codigo
+	 * @param numeroVuelo
+	 * @param diaSemana
+	 * @param horaSalida
+	 * @param horaLlegada
+	 * @param destino
+	 * @param origen
+	 * @param aerolinea
+	 */
 	
 	public VueloPlaneado(long codigo, String numeroVuelo, String diaSemana, String horaSalida, String horaLlegada,
 			 Ciudad destino, Ciudad origen,Aerolinea aerolinea) {
@@ -99,13 +117,26 @@ public class VueloPlaneado {
 	public String toString2(String fechaVE) {
 		return String.format("%s      %s      %s      %s      %s", numeroVuelo,diaSemana, horaSalida, horaLlegada,fechaVE);
 	}
-	
+	/**
+	 * metodo para instanciar y asociar un vuelo especifico a un vuelo planeado
+	 * @param fecha fecha del nuevo vuelo especifico
+	 * @param tipoAvion tipo de avion del nuevo vuelo especifico
+	 * @param capacidad capacidad del avion del nuevo vuelo especifico
+	 * @param tarifa tarifa por silla del nuevo vuelo especifico
+	 * @param vueloPlaneado vuelo planeado asoaciado al nuevo vuelo especifico
+	 * @return codigo del nuevo vuelo especifico
+	 */
 	public long crearVueloEspecifico(LocalDateTime fecha,String tipoAvion,int capacidad,long tarifa,VueloPlaneado vueloPlaneado){
 		VueloEspecifico vueloespecificoaux = new VueloEspecifico(fecha,tipoAvion,capacidad,tarifa,vueloPlaneado);
 		vuelosEspecificos.add(vueloespecificoaux);
 		return vuelosEspecificos.get(vuelosEspecificos.size()-1).getCodigo();
 	}
 	
+	/**
+	 * metodo para buscar vuelos especificos a partir del requerimiento de fecha
+	 * @param fecha fecha deseada para vuelo especifico
+	 * @return arreglo de vuelos especificos que cumplen con la fehca deseada
+	 */
 	public ArrayList<VueloEspecifico> buscarVueloEspecificoRequerimientos(LocalDateTime fecha){
 		
 	ArrayList<VueloEspecifico> VE = new ArrayList<VueloEspecifico>();
