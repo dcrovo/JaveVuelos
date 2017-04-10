@@ -1,5 +1,6 @@
 package co.edu.javeriana.vuelos.negocio;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -7,23 +8,25 @@ import java.util.*;
  * @author Viviana Leyva
  *@author daniel
  */
-public class Pasajero {
+public abstract class Pasajero {
 
 	/**
 	 * atributos de pasajero
 	 */
-	private String identificacion;
-	private String nombre;
-	private ArrayList<Silla> sillas= new ArrayList<Silla>(); //preguntar!
+	protected String identificacion;
+	protected String nombre;
+	protected LocalDateTime fechaNacimiento;
+	private List<Silla> sillas= new ArrayList<Silla>(); //preguntar!
 	
 	/**
 	 * constructor: para instanciar un pasajero no es necesario asoaciarle sillas desde el comienzo
 	 * @param identificacion
 	 * @param nombre
 	 */
-	public Pasajero(String identificacion, String nombre) {
+	public Pasajero(String identificacion, String nombre, LocalDateTime fechaNacimiento) {
 		this.identificacion = identificacion;
 		this.nombre = nombre;
+		this.fechaNacimiento = fechaNacimiento;
 	}
 	
 	public String getIdentificacion() {
@@ -38,10 +41,10 @@ public class Pasajero {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public ArrayList<Silla> getSillas() {
+	public List<Silla> getSillas() {
 		return sillas;
 	}
-	public void setSillas(ArrayList<Silla> sillas) {
+	public void setSillas(List<Silla> sillas) {
 		this.sillas = sillas;
 	}
 	
@@ -49,7 +52,15 @@ public class Pasajero {
 	 * metodo para agregar una silla a la lista de sillas asociadas a pasajero
 	 * @param indSilla
 	 */
-	public void agregarSilla(ArrayList<Silla> auxSillas, int indSilla){
+	public void agregarSilla(List<Silla> auxSillas, int indSilla){
 		sillas.add(auxSillas.get(indSilla));
 	}
+	
+	/**
+	 * Metodo abstracto que permite calcular sobre cada sub clase de pasajero el valor del itinerario de acuerdo a si es mayor o menor
+	 * @return retorna el valor del itinerario de acuerdo a la definicion en cada sub clase
+	 */
+	public abstract long calcularValorItinerario ();
+	public abstract String toString();
+	
 }

@@ -11,7 +11,7 @@ public class ManejoArchivos {
 	 * @param sistema
 	 * @param nombreArchivo
 	 */
-	public static void leerCiudades(SistemaVuelos sistema, String nombreArchivo){
+	public static void leerCiudades(ISistemaViajes sistema, String nombreArchivo){
 		long codigo;
 		String nombre;
 		try{
@@ -46,7 +46,7 @@ public class ManejoArchivos {
 	 * @param sistema
 	 * @param nombreArchivo
 	 */
-	public static void leerAgentes(SistemaVuelos sistema,String nombreArchivo){
+	public static void leerAgentes(ISistemaViajes sistema,String nombreArchivo){
 		
 		long codigo;
 		String nombre,email;
@@ -83,7 +83,7 @@ public class ManejoArchivos {
 	 * @param nombreArchivo
 	 */
 
-	public static void leerAerolinea(SistemaVuelos sistema, String nombreArchivo){
+	public static void leerAerolinea(ISistemaViajes sistema, String nombreArchivo){
 		int i=-1;
 		long codigo,codigoVuelo,origen,destino;
 		String nombre, cuentaBanco,numeroVuelo,diaSemana,horaSalida,horaLlegada;
@@ -140,10 +140,10 @@ public class ManejoArchivos {
 	 * @param origen
 	 */
 
-	public static void reporteArchivoTxt(SistemaVuelos sistema, String origen, String destino, String nombreArchivo){
+	public static void reporteArchivoTxt(ISistemaViajes sistema, String origen, String destino, String nombreArchivo){
 		int indexOrigen = sistema.buscarCiudadNombre(origen);
 		int indexDestino = sistema.buscarCiudadNombre(destino);
-		ArrayList<VueloEspecifico> vuelosPlaneadosEntreCiudades = new ArrayList<VueloEspecifico>();
+		List<VueloEspecifico> vuelosPlaneadosEntreCiudades = new ArrayList<VueloEspecifico>();
 		File outFile = new File("./"+nombreArchivo);
 		FileOutputStream outStream = null;
 		PrintWriter dataOutStream = null;

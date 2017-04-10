@@ -9,17 +9,17 @@ import java.util.*;
  * @author Viviana Leyva
  *@author daniel
  */
-public class VueloEspecifico {
+public abstract class VueloEspecifico {
 
 	private static long CONSECUTIVO=0;
-	private long codigo;
-	private LocalDateTime fecha;
-	private String tipoAvion;
-	private int capacidad;
-	private int cuposLibres;
-	private long tarifa;
-	private ArrayList<Silla> sillas = new ArrayList<Silla>();
-	private ArrayList<Trayecto> trayectos = new ArrayList<Trayecto>();
+	protected long codigo;
+	protected LocalDateTime fecha;
+	protected String tipoAvion;
+	protected int capacidad;
+	protected int cuposLibres;
+	protected long tarifaBasica;
+	private List<Silla> sillas = new ArrayList<Silla>();
+	private List<Trayecto> trayectos = new ArrayList<Trayecto>();
 	private VueloPlaneado vueloPlaneado;
 	
 	/**
@@ -28,17 +28,17 @@ public class VueloEspecifico {
 	 * @param fecha
 	 * @param tipoAvion
 	 * @param capacidad
-	 * @param tarifa
+	 * @param tarifaBasica dada en dolares
 	 * @param vueloPlaneado
 	 */
-	public VueloEspecifico(LocalDateTime fecha, String tipoAvion, int capacidad, long tarifa,VueloPlaneado vueloPlaneado) {
+	public VueloEspecifico(LocalDateTime fecha, String tipoAvion, int capacidad, long tarifaBasica,VueloPlaneado vueloPlaneado) {
 		CONSECUTIVO++;
 		this.codigo = CONSECUTIVO;
 		this.fecha = fecha;
 		this.tipoAvion = tipoAvion;
 		this.capacidad = capacidad;
 		this.cuposLibres = capacidad;
-		this.tarifa = tarifa;
+		this.tarifaBasica = tarifaBasica;
 		this.vueloPlaneado = vueloPlaneado;
 		this.sillas = CrearSillas();
 		
@@ -73,16 +73,16 @@ public class VueloEspecifico {
 	public void setCuposLibres(int cuposLibres) {
 		this.cuposLibres = cuposLibres;
 	}
-	public long getTarifa() {
-		return tarifa;
+	public long getTarifaBasica() {
+		return tarifaBasica;
 	}
-	public void setTarifa(long tarifa) {
-		this.tarifa = tarifa;
+	public void setTarifaBasica(long tarifaBasica) {
+		this.tarifaBasica = tarifaBasica;
 	}
-	public ArrayList<Silla> getSillas() {
+	public List<Silla> getSillas() {
 		return sillas;
 	}
-	public void setSillas(ArrayList<Silla> sillas) {
+	public void setSillas(List<Silla> sillas) {
 		this.sillas = sillas;
 	}
 	public VueloPlaneado getVueloPlaneado() {
@@ -92,10 +92,10 @@ public class VueloEspecifico {
 		this.vueloPlaneado = vueloPlaneado;
 	}
 	
-	public ArrayList<Trayecto> getTrayectos() {
+	public List<Trayecto> getTrayectos() {
 		return trayectos;
 	}
-	public void setTrayectos(ArrayList<Trayecto> trayectos) {
+	public void setTrayectos(List<Trayecto> trayectos) {
 		this.trayectos = trayectos;
 	}
 	@Override
@@ -103,8 +103,8 @@ public class VueloEspecifico {
 		String cod=String.valueOf(codigo);
 		DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String formattedDate = fecha.format(formato);
-		String tarf = String.valueOf(tarifa);
-		return String.format("%s      %s      %s      %d      %d     %s",cod,formattedDate,tipoAvion,capacidad,cuposLibres,tarf);
+		String tarf = String.valueOf(tarifaBasica);
+		return String.format("%s      %s      %s         %d          %d              %s",cod,formattedDate,tipoAvion,capacidad,cuposLibres,tarf);
 	}
 	public String toString2() {
 		String numeroVuelo = vueloPlaneado.getNumeroVuelo();
@@ -115,14 +115,15 @@ public class VueloEspecifico {
 		String formattedDate = fecha.format(formato);
 		return String.format("%s      %s      %s      %s      %s", numeroVuelo,diaSemana, horaSalida, horaLlegada,formattedDate);
 	}
+	public abstract String toString3();
 	
 	
 	/**
 	 * metodo para la creacion de las 150 sillas posibles a partir de su id
 	 * @return el arreglo de sillas para la asociacion al vuelo especifico
 	 */
-	public ArrayList<Silla> CrearSillas(){
-		ArrayList<Silla> sillasaux = new ArrayList<Silla>();
+	public List<Silla> CrearSillas(){
+		List<Silla> sillasaux = new ArrayList<Silla>();
 		String ids = "1A 1B 1C 1D 1E 2A 2B 2C 2D 2E 3A 3B 3C 3D 3E "
 				   + "4A 4B 4C 4D 4E 5A 5B 5C 5D 5E 6A 6B 6C 6D 6E "
 				   + "7A 7B 7C 7D 7E 8A 8B 8C 8D 8E 9A 9B 9C 9D 9E "
@@ -186,5 +187,9 @@ public class VueloEspecifico {
 		trayectos.add(trayecto);
 	}
 	
-
+	/**
+	 * metodo abstactro que permite calcular el valor del pasaje dependiendo de si es un vuelo nacional o internacional
+	 * @return el valro del pasaje dependiendo de la subclase que evalue el metodo sobreescrito respectivamente
+	 */
+	public abstract long calcularValorPasaje();
 }

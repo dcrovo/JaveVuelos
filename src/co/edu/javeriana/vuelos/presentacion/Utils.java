@@ -22,7 +22,12 @@ public static LocalDateTime addHoraAFecha(LocalDate fecha, String hora){
 		long edad = fechaNacimiento.until(fechaHoy, ChronoUnit.YEARS);
 		return edad;
 	}
-	
+	public static long obtenerEdad(LocalDateTime fechaNacimiento){
+		
+		LocalDateTime fechaHoy = LocalDateTime.now();
+		long edad = fechaNacimiento.until(fechaHoy, ChronoUnit.YEARS);
+		return edad;
+	}
 	public static long diferenciaFechasDias(LocalDateTime fecha1, LocalDateTime fecha2){
 		
 		long dif = fecha1.until(fecha2, ChronoUnit.DAYS);

@@ -15,7 +15,7 @@ public class Aerolinea {
 	private long codigo;
 	private String nombre;
 	private String cuentaBanco;
-	private ArrayList<VueloPlaneado> vuelosPlaneados = new ArrayList<VueloPlaneado>();
+	private List<VueloPlaneado> vuelosPlaneados = new ArrayList<VueloPlaneado>();
 	
 	/**
 	 * Constructor: para instanciar una aerolinea no es necesario conocer sus vuelos planeados
@@ -52,10 +52,10 @@ public class Aerolinea {
 	public void setCuentaBanco(String cuentaBanco) {
 		this.cuentaBanco = cuentaBanco;
 	}
-	public ArrayList<VueloPlaneado> getVuelosPlaneados() {
+	public List<VueloPlaneado> getVuelosPlaneados() {
 		return vuelosPlaneados;
 	}
-	public void setVuelosPlaneados(ArrayList<VueloPlaneado> vuelosPlaneados) {
+	public void setVuelosPlaneados(List<VueloPlaneado> vuelosPlaneados) {
 		this.vuelosPlaneados = vuelosPlaneados;
 	}
 	
@@ -103,9 +103,9 @@ public class Aerolinea {
 	 * @param fechaSalida fecha de salida del vuelo planeado
 	 * @return retorna un arreglo de vuelos planeados que cumplen los requerimientos de ciudad destino, origen y fecha de salida
 	 */
-	public ArrayList<VueloPlaneado> buscarVueloEspecificoRequerimiento( long codOrigen, long codDestino, LocalDateTime fechaSalida){
-		ArrayList<VueloPlaneado> VP = new ArrayList<VueloPlaneado>();
-		ArrayList<VueloEspecifico> VE = new ArrayList<VueloEspecifico>();
+	public List<VueloPlaneado> buscarVueloEspecificoRequerimiento( long codOrigen, long codDestino, LocalDateTime fechaSalida){
+		List<VueloPlaneado> VP = new ArrayList<VueloPlaneado>();
+		List<VueloEspecifico> VE = new ArrayList<VueloEspecifico>();
 		int i= 0;
 		for(VueloPlaneado vueloPlaneado : vuelosPlaneados){
 			if((vueloPlaneado.getOrigen().getCodigo() == codOrigen) && (vueloPlaneado.getDestino().getCodigo() == codDestino)){

@@ -1,6 +1,8 @@
 package co.edu.javeriana.vuelos.negocio;
 
 import java.util.*;
+import co.edu.javeriana.vuelos.presentacion.*;
+import java.time.*;
 
 /**
  * Clase Itinerario de JaveVuelos, cada agente tiene una cierta cantidad de itinerarios desconocida
@@ -17,8 +19,8 @@ public class Itinerario {
 	private String nombre;
 	private boolean comprado;
 	private Agente agente;
-	private ArrayList<Trayecto> trayectos= new ArrayList<Trayecto>();
-	private ArrayList<Pasajero> pasajeros= new ArrayList<Pasajero>();
+	private List<Trayecto> trayectos= new ArrayList<Trayecto>();
+	private List<Pasajero> pasajeros= new ArrayList<Pasajero>();
 	
 	/**
 	 * Constructor: Para instanciar un itinerario solo es necesario el nombre y el agente asociado al itinerario
@@ -61,16 +63,16 @@ public class Itinerario {
 	public void setAgente(Agente agente) {
 		this.agente = agente;
 	}
-	public ArrayList<Trayecto> getTrayectos() {
+	public List<Trayecto> getTrayectos() {
 		return trayectos;
 	}
-	public void setTrayectos(ArrayList<Trayecto> trayectos) {
+	public void setTrayectos(List<Trayecto> trayectos) {
 		this.trayectos = trayectos;
 	}
-	public ArrayList<Pasajero> getPasajeros() {
+	public List<Pasajero> getPasajeros() {
 		return pasajeros;
 	}
-	public void setPasajeros(ArrayList<Pasajero> pasajeros) {
+	public void setPasajeros(List<Pasajero> pasajeros) {
 		this.pasajeros = pasajeros;
 	}
 	
@@ -80,13 +82,42 @@ public class Itinerario {
 	 * @param identificacion numero de identificacion del pasajero
 	 * @param nombre nombre del nuevo pasajero
 	 */
-	public void crearPasajero(String identificacion,String nombre){
-		Pasajero pasajeroaux= new Pasajero (identificacion,nombre);
+	public void crearPasajero(String identificacion,String nombre,boolean viajaSolo, LocalDateTime fechaNacimiento){
+		
+		Pasajero pasajeroaux= new Menor (identificacion,nombre, fechaNacimiento, viajaSolo);
 		pasajeros.add(pasajeroaux);
+	
+		
 	}
+	public void crearPasajero(String identificacion,String nombre,LocalDateTime fechaNacimiento, boolean requiereAsistencia){
+		
+		Pasajero pasajeroaux= new Mayor (identificacion,nombre,fechaNacimiento, requiereAsistencia);
+		pasajeros.add(pasajeroaux);
+	
+		
+	}
+	
+	
 	@Override
 	public String toString() {
-		return String.format("%-3d %-15s %-5b", codigo,nombre,comprado);
+		String compra = "C";
+		if(comprado == true){
+			compra="Comprado";
+		}
+		else 
+			compra="Disponible";
+		return String.format("%-3d      %-15s                 %-15s", codigo,nombre,compra);
+	}
+	
+	public String toString2(){
+		int numPas = pasajeros.size();
+		String compra = "C";
+		if(comprado == true){
+			compra="Comprado";
+		}
+		else 
+			compra="Disponible";
+		return String.format("%d    %s            %s       %s", codigo, nombre, numPas,compra);
 	}
 	
 	/**
@@ -125,6 +156,13 @@ public class Itinerario {
 		long costo=0;
 		for (int i=0;i<trayectos.size();i++){
 			costo=costo+((trayectos.get(i).ValorTrayecto())*(pasajeros.size()));
+		}
+		return costo;
+	}
+	public long CalcularValorItinerarioPasajero(){
+		long costo=0;
+		for (int i=0;i<trayectos.size();i++){
+			costo=costo+((trayectos.get(i).ValorTrayecto()));
 		}
 		return costo;
 	}

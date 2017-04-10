@@ -14,7 +14,7 @@ public class Trayecto {
 		private static int CONSECUTIVO=0;
 		private int id;
 		private VueloEspecifico vueloespecifico;
-		private ArrayList<Silla> sillas= new ArrayList<Silla>(); 
+		private List<Silla> sillas= new ArrayList<Silla>(); 
 		private Itinerario itinerario;
 		
 		/**
@@ -40,10 +40,10 @@ public class Trayecto {
 		public void setVueloespecifico(VueloEspecifico vueloespecifico) {
 			this.vueloespecifico = vueloespecifico;
 		}
-		public ArrayList<Silla> getSillas() {
+		public List<Silla> getSillas() {
 			return sillas;
 		}
-		public void setSillas(ArrayList<Silla> sillas) {
+		public void setSillas(List<Silla> sillas) {
 			this.sillas = sillas;
 		}
 		public Itinerario getItinerario() {
@@ -57,7 +57,7 @@ public class Trayecto {
 		 * @return tarifa
 		 */
 		public long ValorTrayecto(){
-			return vueloespecifico.getTarifa();
+			return  vueloespecifico.calcularValorPasaje();
 		}
 		
 		
@@ -99,6 +99,19 @@ public class Trayecto {
 			return String.format("%d   		 %s     %s",id,cod,formattedDate);
 		}
 		
+		public String toString2(){
+			String NomAerolinea = vueloespecifico.getVueloPlaneado().getAerolinea().getNombre();
+			String NumVuelo = vueloespecifico.getVueloPlaneado().getNumeroVuelo();
+			String origen = vueloespecifico.getVueloPlaneado().getOrigen().getNombre();
+			String destino = vueloespecifico.getVueloPlaneado().getDestino().getNombre();
+			DateTimeFormatter formato = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+			String fecha = vueloespecifico.getFecha().format(formato);
+			String Hsal= vueloespecifico.getVueloPlaneado().getHoraSalida();
+			String Hlle= vueloespecifico.getVueloPlaneado().getHoraLlegada();
+			return String.format("%d   %s     %s    %s     %s     %s    %s  %s",id,NomAerolinea,NumVuelo,origen,destino,fecha, Hsal, Hlle);
+		}
+		
+
 		
 
 }

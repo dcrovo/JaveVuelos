@@ -2,6 +2,7 @@ package co.edu.javeriana.vuelos.negocio;
 
 
 import java.util.*;
+import java.time.*;
 /**
  * Clase agente del proyecto JaveVuelos, el sistema tiene varios agentes que se instancian a partir del archivo "Agentes" con ayuda del manejador de archivos
  * @author Viviana Leyva
@@ -15,7 +16,7 @@ public class Agente {
 	private long codigo;
 	private String nombre;
 	private String email;
-	private ArrayList<Itinerario> itinerarios= new ArrayList<Itinerario>();
+	private List<Itinerario> itinerarios= new ArrayList<Itinerario>();
 	
 	
 	/**
@@ -54,10 +55,10 @@ public class Agente {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public ArrayList<Itinerario> getItinerarios() {
+	public List<Itinerario> getItinerarios() {
 		return itinerarios;
 	}
-	public void setItinerarios(ArrayList<Itinerario> itinerarios) {
+	public void setItinerarios(List<Itinerario> itinerarios) {
 		this.itinerarios = itinerarios;
 	}
 
@@ -103,8 +104,11 @@ public class Agente {
 	 * @param identificacion numero de identificacion del nuevo pasajero 
 	 * @param nombre nombre del nuevo pasajero
 	 */
-	public void crearPasajero(int indexItinerario,String identificacion,String nombre){
-		itinerarios.get(indexItinerario).crearPasajero(identificacion, nombre);
+	public void crearPasajero(int indexItinerario,String identificacion,String nombre, boolean viajaSolo, LocalDateTime fechaNacimiento){
+		itinerarios.get(indexItinerario).crearPasajero(identificacion, nombre,viajaSolo, fechaNacimiento);
+	}
+	public void crearPasajero(int indexItinerario,String identificacion,String nombre, LocalDateTime fechaNacimiento, boolean requiereAsistencia){
+		itinerarios.get(indexItinerario).crearPasajero(identificacion, nombre,requiereAsistencia,fechaNacimiento);
 	}
 	
 	/**
@@ -162,7 +166,7 @@ public class Agente {
 	 * @param indSilla indice de la silla deseada
 	 */
 	public void comprarSilla(int indItinerario,int indTrayecto,int indPasajero,int indSilla){
-		ArrayList<Silla>Sillas = itinerarios.get(indItinerario).getTrayectos().get(indTrayecto).getVueloespecifico().getSillas();
+		List<Silla>Sillas = itinerarios.get(indItinerario).getTrayectos().get(indTrayecto).getVueloespecifico().getSillas();
 		itinerarios.get(indItinerario).comprarSilla(indTrayecto,indPasajero, indSilla);
 		itinerarios.get(indItinerario).getPasajeros().get(indPasajero).agregarSilla(Sillas,indSilla);
 		itinerarios.get(indItinerario).getTrayectos().get(indTrayecto).agregarSilla(indSilla);
